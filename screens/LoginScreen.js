@@ -1,23 +1,22 @@
 import { useNavigation } from '@react-navigation/core'
-import React from 'react'
+import React,{useState} from 'react'
 import { ScrollView, Keyboard, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 
 import { LogoLogin } from '../components/LogoLogin';
 import { loginStyle } from '../theme/loginTheme';
 import { TextInput } from 'react-native-paper';
-import { useForm}  from '../hooks/useForm';
 
 export const LoginScreen = ({route, navigation}) => {
-    
-    // const params = route.params;
-    const {email, password, onChange} = useForm ({
-        email: '',
-        password: '',
-    })
+    const [email,setEmail]=useState("");
+    const [password,setPassword]=useState("");
 
     const onLogin = () => {
         console.log({email, password});
         Keyboard.dismiss();
+    }
+
+    const onChange=()=>{
+        console.log("test");
     }
 
     const navigator = useNavigation();
@@ -60,7 +59,9 @@ export const LoginScreen = ({route, navigation}) => {
                     <View>
                         <TouchableOpacity 
                         style={loginStyle.botonAceptar}
-                        onPress={onLogin}
+                        // onPress={onLogin}
+                        onPress={() => navigation.replace( 'InicioScreen' )}
+
                         >
                         <Text style={loginStyle.textoboton}>Inicio Sesion</Text>
                         </TouchableOpacity>

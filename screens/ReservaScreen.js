@@ -5,14 +5,19 @@ import { TextInput } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Icon from 'react-native-vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
+import moment from 'moment';
+import { useNavigation } from '@react-navigation/core'
 
-export const ReservaScreen = () => {
+export const ReservaScreen = ({navigation}) => {
 
     useEffect(() => {
         console.log('Reservas');
         getDataInitial();
     }, [])
 
+    const onRegister = () => {
+        console.log({descripcion, cliente, precio, fecha, peluqueroElegido});
+    }
    
 
     const [date, setDate] = useState(new Date());
@@ -51,11 +56,9 @@ export const ReservaScreen = () => {
         setDate(currentDate);
 
         let tempDate = new Date(currentDate);
-        let fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1 ) + '/' + tempDate.getFullYear();
-        let fTime = tempDate.getHours() + ':' + tempDate.getMinutes();
-        setFecha(fDate + '    ' + fTime)
 
-        console.log(fDate + ' ('+ fTime + ')')
+        let newDataDate=moment(tempDate).format("YYYY-MM-DD HH:mm:ss");
+        setFecha(newDataDate);
     };
 
 
@@ -70,9 +73,7 @@ export const ReservaScreen = () => {
                     return {label:item.nombre,value:item._id}; 
                 });
                 setPeluqueros(dataArrayFixed);
-                console.log(dataArrayFixed);
             }else{
-                console.log("error");
                 console.log(dataResponse.data);
             }
         }catch(e){
@@ -83,16 +84,11 @@ export const ReservaScreen = () => {
     const postDataReserva=async()=>{
         try{
             let head={'Content-Type': 'application/json'};
-            let dato= {descripcion, fecha, cliente, precio, }
-            const dataResponse = await apiCall('POST','new-reserva-data',null,head);
+            let dato={descripcion:descripcion,fecha:fecha,alias:cliente,precio:precio, idPeluquero:peluqueroElegido}
+            const dataResponse = await apiCall('POST','new-reserva-data', dato ,head);
+                        
             if(dataResponse.data.status=="success"){
-                               
-                let tempData=dataResponse.data.dataPeluquero;
-                let dataArrayFixed = tempData.map(item => {
-                    return {label:item.nombre,value:item._id}; 
-                });
-                setPeluqueros(dataArrayFixed);
-                console.log(dataArrayFixed);
+                console.log(dataResponse.data);
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
@@ -102,17 +98,20 @@ export const ReservaScreen = () => {
         }
     }
 
-    // descripcion:req.body.descripcion, 
-    // fecha:req.body.fecha, alias:req.body.alias,
-    // precio:req.body.precio,  idPeluquero:req.body.idPeluquero 
-
     //   FECHA
     return (
         <>
-        <ScrollView>
+         <TouchableOpacity 
+                style={styles.btnVolver}
+                onPress={() => navigation.navigate( 'ReservasAllScreen' )}
+            >
+                <Icon name={'chevron-back-outline'} size={ 22 } color= { '#030099'} />
+                <Text style={styles.textoBtn}>volver</Text>
+            </TouchableOpacity>
             <View style={styles.titulo}>
                 <Text style={styles.texto}> REGISTRO DE RESERVAS</Text> 
             </View>
+        <ScrollView>
             <View style={styles.cajaTexto}>
             
                 <TextInput
@@ -138,7 +137,8 @@ export const ReservaScreen = () => {
                 <Text style={styles.textoFecha}>Fecha y Hora: </Text>
 
                 <Text style={styles.fechaHora}
-                 
+                 onChangeText={fecha => setFecha(fecha)}
+                 value= {fecha}
                 >{fecha}</Text>
     
                 
@@ -173,6 +173,7 @@ export const ReservaScreen = () => {
                         style={{height:42}}
                         globalTextStyle={{fontSize:11}}
                         placeholderStyle={{color:"gray"}}
+                        value={peluqueros}
                         itemStyle={{
                             justifyContent: 'flex-start',borderColor:'rgba(0,0,0,0.045)'
                     }}
@@ -180,9 +181,9 @@ export const ReservaScreen = () => {
                 /> : null}
             </View>
             <View>
-                <TouchableOpacity onPress={() =>{}}>
+                <TouchableOpacity onPress={() =>{postDataReserva()}}>
                 <View style={styles.boton}>
-                    <Text style={styles.botonText}>Registrar</Text>
+                    <Text style={styles.botonText}>Registrars</Text>
                 </View>
                 </TouchableOpacity>
             </View>
@@ -206,13 +207,38 @@ const styles = StyleSheet.create({
     titulo: {
         // backgroundColor: 'red',
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 17,
+        marginLeft: 50
+
     },
     texto: {
         fontSize: 20,
         fontWeight: 'bold',
-        
     },
+    textoboton:{
+        borderWidth : 1,
+        fontSize: 25,
+        textAlign: 'center',
+        borderRadius: 50,
+        marginTop: 10,
+        backgroundColor: '#5856D6',
+        borderColor: '#5856D6',
+        color: 'white'
+    },
+    btnVolver:{
+        position: 'absolute',
+        top: 20,
+        left: 10,
+        flexDirection: 'row',
+    },
+    textoBtn:{
+        color: '#030099',
+        fontSize: 15,
+     
+    },
+    ////////////////////////////
+   
+   
     cajaTexto:{
         // backgroundColor: 'green',
         marginTop: 20,

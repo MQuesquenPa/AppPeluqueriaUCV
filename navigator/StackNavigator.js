@@ -8,7 +8,7 @@ import { NosotrosScreen } from '../screens/NosotrosScreen';
 import { PerfilScreen } from '../screens/PerfilScreen';
 import { ReservasAllScreen } from '../screens/ReservasAllScreen';
 import { ReservaScreen } from '../screens/ReservaScreen';
-// import { RegistroScreen } from '../screens/RegistroScreen';
+import { ProductoScreen } from '../screens/ProductoScreen';
 
 const Stack = createStackNavigator();
 
@@ -30,7 +30,7 @@ export const StackNavigator = () => {
       <Stack.Screen name="PerfilScreen" component={ PerfilScreen } />
       <Stack.Screen name="ReservasAllScreen" component={ ReservasAllScreen } />
       <Stack.Screen name="ReservaScreen" component={ ReservaScreen } />
-      {/* <Stack.Screen name="RegistroScreen" component={ RegistroScreen } /> */}
+      <Stack.Screen name="ProductoScreen" component={ ProductoScreen } />
 
 
  

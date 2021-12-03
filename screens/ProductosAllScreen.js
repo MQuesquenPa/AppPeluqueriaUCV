@@ -1,26 +1,28 @@
-import { useNavigation } from '@react-navigation/core';
-import React from 'react'
-import { StyleSheet, Text, View, ScrollView } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useEffect } from 'react'
+import { View , Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/core'
+import { loginStyle } from '../theme/loginTheme';
 
-export  const ReservasAllScreen = ({ navigation}) => {
-    
-    const navigator = useNavigation();
+export const ProductosAllScreen = ({ navigation}) => {
+
+    useEffect(() => {
+        console.log('Productos')
+    }, [])
+
 
     return (
         <>
+            
             <View style={styles.titulo}>
-                <Text style={styles.texto}>Reservas</Text>
+                <Text style={styles.texto}>Productos</Text>
                 
                 <View style={styles.iconoBuscar}>
-                    <TouchableOpacity onPress={() =>navigation.navigate( 'ReservaScreen' )}>
+                    <TouchableOpacity onPress={() =>navigation.navigate( 'ProductoScreen' )}>
                             <Icon name="add-circle" size={40} color="#5856D6"/>
                     </TouchableOpacity>
                 </View>
             </View>
-
-
             <ScrollView>
             <View style={styles.cajas}>
                 <View style={styles.caja}>
@@ -28,8 +30,10 @@ export  const ReservasAllScreen = ({ navigation}) => {
                         <Icon name="calendar-outline" size={40} color="#5856D6"/>
                     </View>
                     <View style={styles.textoMedio}>
-                        <Text>Cliente: Hermelinda Hernandez </Text>
-                        <Text>Fecha:  </Text>
+                        <Text>TINTE</Text>
+                        <Text>juego </Text>
+                        <Text>5 UNID</Text>
+
                     </View>
                     <View style={styles.imagenDerecha}>
                         <TouchableOpacity
@@ -41,8 +45,6 @@ export  const ReservasAllScreen = ({ navigation}) => {
                     </View>
                 </View>
             </View>
-
-            
             </ScrollView>
         </>
     )
@@ -61,7 +63,6 @@ const styles = StyleSheet.create({
     iconoBuscar:{
         marginLeft: '50%',
         marginTop: -5
-
     },
     cajas:{
         borderRadius : 30,
@@ -96,9 +97,8 @@ const styles = StyleSheet.create({
     imagenDerecha:{
         
         // backgroundColor: 'red',
-        // alignSelf: "flex-end",
         alignSelf: 'center',
         marginLeft: '10%'
-
     }
-});
+
+})

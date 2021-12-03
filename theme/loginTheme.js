@@ -49,5 +49,18 @@ export const loginStyle =  StyleSheet.create({
         backgroundColor: '#5856D6',
         borderColor: '#5856D6',
         color: 'white'
+    },
+    btnVolver:{
+        position: 'absolute',
+        top: 20,
+        left: 10,
+        flexDirection: 'row',
+    },
+    textoBtn:{
+        color: '#030099',
+        fontSize: 15,
+        // textDecorationLine: 'underline',
+
+
     }
 });

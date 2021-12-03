@@ -5,7 +5,7 @@ import { styles } from '../theme/appTheme'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-export const MasScreen = () => {
+export const MasScreen = ({navigation}) => {
 
     const navigator = useNavigation();
     
@@ -21,7 +21,7 @@ export const MasScreen = () => {
         })
     }, [])
     
-    const navigation = useNavigation();
+    // const navigation = useNavigation();
     return (
         <>
             <View style={styless.imagen}>
@@ -47,7 +47,10 @@ export const MasScreen = () => {
 
                 <TouchableOpacity
                         style={styless.boton}
-                        onPress={() => navigation.navigate( 'LoginScreen' )}>
+                        // onPress={() => navigation.replace( 'LoginScreen' )}
+                        onPress={() => navigation.navigate( 'LoginScreen' )}
+
+                        >
                             <Icon name={'log-in-outline'} size={ 30 } color= { 'black'} />  
                             <Text style={styless.texto}>Cerrar Sesion</Text>
                 </TouchableOpacity>

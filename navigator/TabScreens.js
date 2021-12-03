@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 
 import { StackNavigator } from './StackNavigator';
-import { ProductosScreen } from '../screens/ProductosScreen';
+import { ProductosAllScreen } from '../screens/ProductosAllScreen';
 import { ReservaScreen } from '../screens/ReservaScreen';
 import { ReservasAllScreen } from '../screens/ReservasAllScreen';
 
@@ -54,7 +54,7 @@ export const  TabScreens = () => {
             case 'Filtro':
               iconName = 'camera-outline'
             break;
-            case 'ProductosScreen':
+            case 'ProductosAllScreen':
               iconName = 'basket-outline'
             break;
             case 'MasScreen':
@@ -73,7 +73,7 @@ export const  TabScreens = () => {
       {/* <Tab.Screen name="ReservaScreen"  options={{title: 'Reservas'}} component={ReservaScreen} /> */}
 
       <Tab.Screen name="Filtro" options={{title: ''}} component={Filtro} />
-      <Tab.Screen name="ProductosScreen" options={{title: 'Productos'}} component={ProductosScreen} />
+      <Tab.Screen name="ProductosAllScreen" options={{title: 'Productos'}} component={ProductosAllScreen} />
       <Tab.Screen name="MasScreen" headerMode={'true'}  options={{title: 'Mas'}} component={MasScreen} />
     </Tab.Navigator>
   );
