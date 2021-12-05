@@ -101,7 +101,7 @@ export const ReservaScreen = ({navigation}) => {
     //   FECHA
     return (
         <>
-         <TouchableOpacity 
+            <TouchableOpacity 
                 style={styles.btnVolver}
                 onPress={() => navigation.navigate( 'ReservasAllScreen' )}
             >
@@ -160,6 +160,7 @@ export const ReservaScreen = ({navigation}) => {
                     mode='outlined'
                     label="Precio"
                     placeholder="Ingrese el precio del servicio"
+                    keyboardType="numeric"
                     onChangeText={precio => setPrecio(precio)}
                     value= {precio}
                 />
@@ -183,7 +184,7 @@ export const ReservaScreen = ({navigation}) => {
             <View>
                 <TouchableOpacity onPress={() =>{postDataReserva()}}>
                 <View style={styles.boton}>
-                    <Text style={styles.botonText}>Registrars</Text>
+                    <Text style={styles.botonText}>Registrar</Text>
                 </View>
                 </TouchableOpacity>
             </View>
