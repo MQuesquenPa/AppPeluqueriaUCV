@@ -5,11 +5,7 @@ import { useNavigation } from '@react-navigation/core'
 import { loginStyle } from '../theme/loginTheme';
 import apiCall from '../services/api';
 
-
-
-export const ProductosAllScreen = ({ navigation}) => {
-
-
+export const ClientesAllScreen = ({navigation}) => {
     const [loading,setLoading]=useState(true);
     const [data,setData]=useState([]);
 
@@ -22,31 +18,28 @@ export const ProductosAllScreen = ({ navigation}) => {
     const getData=async()=>{
         try{
             let head={'Content-Type': 'application/json'};
-            let url = 'select-producto-by-name';
+            let url = 'select-cliente-by-name';
             let dataResponse = await apiCall('GET', url, null, head);
-            console.log(dataResponse.data.dataProducto);
-            setData(dataResponse.data.dataProducto);
+            console.log(dataResponse.data.dataCliente);
+            setData(dataResponse.data.dataCliente);
             setLoading(false);
             
         }catch(e){
             console.log(e);
         }
     }
-
     return (
         <>
-            
             <View style={styles.titulo}>
-                <Text style={styles.texto}>Productos</Text>
+                <Text style={styles.texto}>Clientes</Text>
                 
                 <View style={styles.iconoBuscar}>
-                    <TouchableOpacity onPress={() =>navigation.navigate( 'ProductoScreen' )}>
+                    <TouchableOpacity onPress={() =>navigation.replace( 'ClienteScreen' )}>
                             <Icon name="add-circle" size={40} color="#5856D6"/>
                     </TouchableOpacity>
                 </View>
             </View>
             <ScrollView>
-                {/* Productos Datos */}
                 {data.length>0 ? 
                     data.map((item,index)=>{
                         return(
@@ -59,8 +52,8 @@ export const ProductosAllScreen = ({ navigation}) => {
                                     </View>
                                     <View style={styles.textoMedio}>
                                         <Text key={index}>Nombre: {item.nombre}</Text>
-                                        <Text key={index}>Descripcion: {item.descripcion}</Text>
-                                        <Text key={index}>{item.stock} unidades</Text>
+                                        <Text key={index}>Apellido: {item.apellido}</Text>
+                                        <Text key={index}>Telefono: {item.telefono}</Text>
 
                                     </View>
                                     <View style={styles.imagenDerecha}>
@@ -78,31 +71,11 @@ export const ProductosAllScreen = ({ navigation}) => {
                         
                     })
                 : null}
-                    {/* <View style={styles.cajas}>
-                        <View style={styles.caja}>
-                            <View style={styles.imagen}>
-                                <Icon name="calendar-outline" size={40} color="#5856D6"/>
-                            </View>
-                            <View style={styles.textoMedio}>
-                                <Text>TINTE</Text>
-                                <Text>juego </Text>
-                                <Text>5 UNID</Text>
-
-                            </View>
-                            <View style={styles.imagenDerecha}>
-                                <TouchableOpacity
-                                    onPress={() => {}}
-                                >
-                                    <Icon name="caret-forward-outline" size={40} color="#5856D6"/>
-
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View> */}
             </ScrollView>
         </>
     )
 }
+
 const styles = StyleSheet.create({
     titulo: {
         // backgroundColor: 'red',

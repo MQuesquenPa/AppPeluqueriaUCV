@@ -9,6 +9,7 @@ import Animated from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
 import apiCall from '../services/api';
 
+import ImagePicker from 'react-native-image-crop-picker';
 
 
 
@@ -30,6 +31,7 @@ export const ProductoScreen = ({navigation}) => {
     const [categoriaElegida, setCategoriaElegida] = useState(null);
     const [categorias, setCategorias] = useState([]);
 
+    const [imageUri, setImageUri] = useState('')
 
 
     const getDataInitial=async()=>{
@@ -52,8 +54,41 @@ export const ProductoScreen = ({navigation}) => {
             console.log(e);
         }
     }
+    ////////////////////////////////////////
+    const TakePhotoFromCamera=()=>{
+        ImagePicker.openCamera({
+            mediaType:'photo',
+            cropping: true,
+            width: 350,
+            height: 350,
+            // width: image.width,
+            // height: image.height,
+            // width: Dimensions.get("window").width,
+            // height: Dimensions.get("window").height+insets.top,
+            compressImageQuality:0.9
+          }).then(image => {
+              console.log(image);
+              setImageUri(image.path);
+            // setModalPhoto(false);
+            // setTypeMedia(1);
+            // setMedia(image.path);
 
-   
+          })
+    }
+
+    const TakePhotoGalery=()=>{
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+            setImageUri(image.path);
+
+          });
+    }
+
+
     const showMode = () => {
         setShow(true);
     };
@@ -69,10 +104,10 @@ export const ProductoScreen = ({navigation}) => {
                 <Text style={styles.panelTitle}>Subir Photo</Text>
                 <Text style={styles.panelSubtitle}>Elige la foto del producto</Text>
             </View>
-            <TouchableOpacity style={styles.panelButton} onPress={() => { }}>
+            <TouchableOpacity style={styles.panelButton} onPress={() => { TakePhotoFromCamera(); hideMode(); }}>
                 <Text style={styles.panelButtonTitle}>Tomar Foto</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.panelButton} onPress={() => {}}>
+            <TouchableOpacity style={styles.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
                 <Text style={styles.panelButtonTitle}>Abrir Galeria</Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -166,10 +201,10 @@ export const ProductoScreen = ({navigation}) => {
                 }}
             >
                 <TouchableOpacity onPress={() => showMode()} >
-                {/* <Image
-                    source={}
+                { imageUri ? <Image
+                    source={{uri:imageUri}}
                     style={{
-                    marginTop: 20,
+                    marginTop: 50,
                     marginBottom: 30,
                     height: 130,
                     width: 200,
@@ -177,10 +212,11 @@ export const ProductoScreen = ({navigation}) => {
                     borderWidth: 2,
                     borderColor: 'black',
                     }}
-                    /> */}
+                    />
+                : null}
                     {/* <Text style={{position: 'absolute', marginVertical: 70, backgroundColor: 'red', marginHorizontal:40}}>
-                        Seleccionar Imagen</Text> */}
-                        <Text >
+                        Seleccionars Imagen</Text> */}
+                        <Text style={{marginTop:50}} >
                         Seleccionar Imagen</Text>
                 </TouchableOpacity>
                 
@@ -198,7 +234,6 @@ export const ProductoScreen = ({navigation}) => {
                 />
             )}
 
-              
         </>
       );
 

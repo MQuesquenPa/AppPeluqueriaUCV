@@ -10,7 +10,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { PeluqueroScreen } from '../screens/PeluqueroScreen';
 import { styles } from '../theme/appTheme';
 import {useNavigation} from "@react-navigation/native";
-import { ClienteScreen } from '../screens/ClienteScreen';
+import { PeluquerosAllScreen } from '../screens/PeluquerosAllScreen';
+import { ClientesAllScreen } from '../screens/ClientesAllScreen';
+
 import { TabScreens } from './TabScreens';
 
 
@@ -28,8 +30,8 @@ export function MenuLateral() {
         drawerContent = {() => <MenuInterno />}
     >
       <Drawer.Screen name="TabScreens"  component={TabScreens} />
-      <Drawer.Screen name="PeluqueroScreen" component={PeluqueroScreen} />
-      <Drawer.Screen name="ClienteScreen" component={ClienteScreen} />
+      <Drawer.Screen name="PeluquerosAllScreen" component={PeluquerosAllScreen} />
+      <Drawer.Screen name="ClientesAllScreen" component={ClientesAllScreen} />
     </Drawer.Navigator>
   );
 }
@@ -55,7 +57,7 @@ const MenuInterno = () =>{
             flexDirection : 'row',
             
           }}
-          onPress = { () => navigation.navigate( 'PeluqueroScreen' ) }
+          onPress = { () => navigation.navigate( 'PeluquerosAllScreen' ) }
         >
           <Icon name={'person-circle-outline'} size={ 25 } color= { 'black'} />  
           <Text style={styles.menuText}>Peluquero</Text>
@@ -66,13 +68,13 @@ const MenuInterno = () =>{
             ...styles.menuBoton,
             flexDirection: 'row'
           }}
-          onPress = { () => navigation.navigate( 'ClienteScreen' ) }
+          onPress = { () => navigation.navigate( 'ClientesAllScreen' ) }
         >
           <Icon name={'happy-outline'} size={ 25 } color= { 'black'} />  
           <Text style={styles.menuText}>Clientes</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
           style={{
             ...styles.menuBoton,
             flexDirection: 'row'
@@ -81,7 +83,7 @@ const MenuInterno = () =>{
         >
           <Icon name={'construct-outline'} size={ 25 } color= { 'black'} />  
           <Text  style={styles.menuText}>Mantenimiento</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </DrawerContentScrollView>
   );

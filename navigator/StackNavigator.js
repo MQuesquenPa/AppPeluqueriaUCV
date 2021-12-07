@@ -9,6 +9,12 @@ import { PerfilScreen } from '../screens/PerfilScreen';
 import { ReservasAllScreen } from '../screens/ReservasAllScreen';
 import { ReservaScreen } from '../screens/ReservaScreen';
 import { ProductoScreen } from '../screens/ProductoScreen';
+import { ClientesAllScreen } from '../screens/ClientesAllScreen';
+import { ClienteScreen } from '../screens/ClienteScreen';
+import { PeluqueroScreen } from '../screens/PeluqueroScreen';
+
+
+
 
 const Stack = createStackNavigator();
 
@@ -31,6 +37,12 @@ export const StackNavigator = () => {
       <Stack.Screen name="ReservasAllScreen" component={ ReservasAllScreen } />
       <Stack.Screen name="ReservaScreen" component={ ReservaScreen } />
       <Stack.Screen name="ProductoScreen" component={ ProductoScreen } />
+      <Stack.Screen name="ClientesAllScreen" component={ ClientesAllScreen } />
+      <Stack.Screen name="ClienteScreen" component={ ClienteScreen } />
+      <Stack.Screen name="PeluqueroScreen" component={ PeluqueroScreen } />
+
+
+
 
 
  
