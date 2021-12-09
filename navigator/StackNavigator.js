@@ -13,9 +13,6 @@ import { ClientesAllScreen } from '../screens/ClientesAllScreen';
 import { ClienteScreen } from '../screens/ClienteScreen';
 import { PeluqueroScreen } from '../screens/PeluqueroScreen';
 
-
-
-
 const Stack = createStackNavigator();
 
 export const StackNavigator = () => {
@@ -27,12 +24,9 @@ export const StackNavigator = () => {
     >
 
       <Stack.Screen name="HomeScreen" headerMode={'none'}  options={{title: 'Home' }}    component={ HomeScreen } />
-
       <Stack.Screen name="LoginScreen" component={ LoginScreen } />
-
       <Stack.Screen name="MasScreen" headerMode={'true'}   component={ MasScreen } />
       <Stack.Screen name="NosotrosScreen" component={ NosotrosScreen } />
-
       <Stack.Screen name="PerfilScreen" component={ PerfilScreen } />
       <Stack.Screen name="ReservasAllScreen" component={ ReservasAllScreen } />
       <Stack.Screen name="ReservaScreen" component={ ReservaScreen } />
@@ -41,11 +35,6 @@ export const StackNavigator = () => {
       <Stack.Screen name="ClienteScreen" component={ ClienteScreen } />
       <Stack.Screen name="PeluqueroScreen" component={ PeluqueroScreen } />
 
-
-
-
-
- 
     </Stack.Navigator>
   );
 }

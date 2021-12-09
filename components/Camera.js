@@ -16,39 +16,31 @@ export default class Camera extends PureComponent {
       leftEarPosition: null,
       rightEarPosition : null,
       dataArray:[
-        {id:1,nombre:"Pcorta", imagen: require('../img/peluca.png'),  top:450, ancho: 80, left: 30, state:true},
-        {id:2,nombre:"Plarge" , imagen: require('../img/peluca2.png'), top:220, ancho: 130, left: 60, state:false},
-        {id:3,nombre:"PCerq" , imagen: require('../img/peluca3.png'), top:450, ancho: 160, left: 70, state:false},
-        {id:4,nombre:"PCua" , imagen: require('../img/peluca4.png'), top:450, ancho: 160, left: 70, state:false},
-        {id:5,nombre:"PLa" , imagen: require('../img/Peluca5.png'),  top:30,  ancho: 120, left: 10, state:false},
-        {id:6,nombre:"Pas" , imagen: require('../img/Peluca6.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:7,nombre:"Pgrin" , imagen: require('../img/Peluca7.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:8,nombre:"Pqwa" , imagen: require('../img/Peluca8.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:9,nombre:"Pqwa" , imagen: require('../img/Peluca9.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:10,nombre:"Pqwa" , imagen: require('../img/Peluca10.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:11,nombre:"Pqwa" , imagen: require('../img/Peluca11.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:12,nombre:"Pqwa" , imagen: require('../img/Peluca12.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:13,nombre:"Pqwa" , imagen: require('../img/Peluca13.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:14,nombre:"Pqwa" , imagen: require('../img/Peluca14.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:15,nombre:"Pqwa" , imagen: require('../img/Peluca15.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:16,nombre:"Pqwa" , imagen: require('../img/Peluca16.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:18,nombre:"Pqwa" , imagen: require('../img/Peluca18.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:19,nombre:"Pqwa" , imagen: require('../img/Peluca19.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:20,nombre:"Pqwa" , imagen: require('../img/Peluca20.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:21,nombre:"Pqwa" , imagen: require('../img/Peluca21.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:22,nombre:"Pqwa" , imagen: require('../img/Peluca22.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:23,nombre:"Pqwa" , imagen: require('../img/Peluca23.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:24,nombre:"Pqwa" , imagen: require('../img/Peluca24.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:25,nombre:"Pqwa" , imagen: require('../img/Peluca25.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:26,nombre:"Pqwa" , imagen: require('../img/Peluca26.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:27,nombre:"Pqwa" , imagen: require('../img/Peluca27.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:28,nombre:"Pqwa" , imagen: require('../img/Peluca28.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:29,nombre:"Pqwa" , imagen: require('../img/Peluca29.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:30,nombre:"Pqwa" , imagen: require('../img/Peluca30.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:31,nombre:"Pqwa" , imagen: require('../img/Peluca31.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:32,nombre:"Pqwa" , imagen: require('../img/Peluca32.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:33,nombre:"Pqwa" , imagen: require('../img/Peluca33.png'),  top:40,  ancho: 120, left: 10, state:false},
-        {id:34,nombre:"Pqwa" , imagen: require('../img/Peluca34.png'),  top:40,  ancho: 120, left: 10, state:false},
+        {id:1,nombre:"peluca", imagen: require('../img/peluca.png'),  top:450, ancho: 80, left: 30, state:true},
+        {id:2,nombre:"peluca2" , imagen: require('../img/peluca2.png'), top:220, ancho: 130, left: 60, state:false},
+        {id:3,nombre:"peluca3" , imagen: require('../img/peluca3.png'), top:420, ancho: 140, left: 70, state:false},
+        {id:4,nombre:"peluca4" , imagen: require('../img/peluca4.png'), top:420, ancho: 158, left: 60, state:false},
+        {id:5,nombre:"peluca5" , imagen: require('../img/peluca5.png'),  top:190,  ancho: 150, left: 40, state:false},
+
+        {id:6,nombre:"peluca6" , imagen: require('../img/peluca6.png'),  top:440,  ancho: 120, left: 10, state:false},//eliminar borde
+
+        {id:7,nombre:"peluca7" , imagen: require('../img/peluca7.png'),  top:210,  ancho: 140, left: 50, state:false},
+        
+        {id:8,nombre:"peluca8" , imagen: require('../img/peluca8.png'),  top:390,  ancho: 300, left: 200, state:false},//eliminar 
+
+        {id:9,nombre:"peluca9" , imagen: require('../img/peluca9.png'),  top:600,  ancho: 120, left: 50, state:false},
+        
+        {id:10,nombre:"peluca10" , imagen: require('../img/peluca10.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:11,nombre:"peluca11" , imagen: require('../img/peluca11.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:12,nombre:"peluca12" , imagen: require('../img/peluca12.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:13,nombre:"peluca13" , imagen: require('../img/peluca13.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:14,nombre:"peluca14" , imagen: require('../img/peluca14.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:15,nombre:"peluca15" , imagen: require('../img/peluca15.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:16,nombre:"peluca16" , imagen: require('../img/peluca16.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:20,nombre:"peluca17" , imagen: require('../img/peluca17.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:18,nombre:"peluca18" , imagen: require('../img/peluca18.png'),  top:400,  ancho: 120, left: 30, state:false},
+        {id:19,nombre:"peluca19" , imagen: require('../img/peluca19.png'),  top:400,  ancho: 120, left: 30, state:false},
+   
 
       ]
     };

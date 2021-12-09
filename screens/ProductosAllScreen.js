@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/core'
 import { loginStyle } from '../theme/loginTheme';
 import apiCall from '../services/api';
 
+import { ProductosNavigator } from '../navigator/ProductosNavigator';
 
 
 export const ProductosAllScreen = ({ navigation}) => {

@@ -1,18 +1,23 @@
 import { useNavigation } from '@react-navigation/core'
-import React,{useState} from 'react'
+import React,{useState, useMemo} from 'react'
 import { ScrollView, Keyboard, Text, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 
 import { LogoLogin } from '../components/LogoLogin';
 import { loginStyle } from '../theme/loginTheme';
 import { TextInput } from 'react-native-paper';
+import { AuthContext } from '../components/context';
 
 export const LoginScreen = ({route, navigation}) => {
+    
     const [email,setEmail]=useState("");
     const [password,setPassword]=useState("");
+
+    const { signIn } = React.useContext(AuthContext);
 
     const onLogin = () => {
         console.log({email, password});
         Keyboard.dismiss();
+        signIn();
     }
 
     const onChange=()=>{
@@ -20,6 +25,56 @@ export const LoginScreen = ({route, navigation}) => {
     }
 
     const navigator = useNavigation();
+
+    const [data, setData] = React.useState({
+        username: '',
+        password: '',
+        check_textInputChange: false,
+        secureTextEntry: true,
+        isValidUser: true,
+        isValidPassword: true,
+    });
+
+    const textInputChange = (val) => {
+        if( val.trim().length === 0 ) {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true,
+                // isValidUser: true 
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false,
+                // isValidUser: false
+            });
+        }
+    }
+
+    const handlePasswordChange = (val) => {
+        setData({
+                ...data,
+                password: val,
+                // isValidPassword: true
+        });
+    }
+
+    const updateSecureTextEntry = () => {
+        setData({
+            ...data,
+            secureTextEntry: !data.secureTextEntry
+        });
+    }
+
+    const loginHandle = () => {
+        
+        signIn(email, password);
+    }
+
+
+
     return (
         <>
         <KeyboardAvoidingView  style={{flex:1}}>
@@ -39,9 +94,10 @@ export const LoginScreen = ({route, navigation}) => {
                             placeholder="Ingrese el correo electronico"
                             style={loginStyle.cajaTexto}
                             keyboardType="email-address"
-                            onChangeText={(value)=> onChange(value, 'email')}
+                            onChangeText={(email)=> setEmail(email)}
+                            // onChangeText={(value)=> onChange(value, 'email')}
                             value={ email }
-                            onSubmitEditing = {onLogin}
+                            // onSubmitEditing = {onLogin}
 
                     />
 
@@ -51,16 +107,17 @@ export const LoginScreen = ({route, navigation}) => {
                             label="Contraseña"
                             placeholder="Ingrese la contraseña"
                             style={loginStyle.cajaTexto}
-                            onChangeText={(value)=> onChange(value, 'password')}
+                            onChangeText={(password)=> setPassword(password)}
+                            // onChangeText={(value)=> onChange(value, 'password')}
                             value={ password }
-                            onSubmitEditing = {onLogin}
+                            // onSubmitEditing = {onLogin}
                     />
 
                     <View>
                         <TouchableOpacity 
                         style={loginStyle.botonAceptar}
-                        // onPress={onLogin}
-                        onPress={() => navigation.replace( 'InicioScreen' )}
+                        onPress={() => {loginHandle()}}
+                        // onPress={() => navigation.replace( 'InicioScreen' )}
 
                         >
                         <Text style={loginStyle.textoboton}>Inicio Sesion</Text>

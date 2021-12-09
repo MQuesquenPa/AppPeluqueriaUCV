@@ -1,14 +1,17 @@
-import { useNavigation } from '@react-navigation/core';
 import React, { useEffect } from 'react'
+import { useNavigation } from '@react-navigation/core';
 import {  StyleSheet, Text, View, Image} from 'react-native'
 import { styles } from '../theme/appTheme'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { AuthContext } from '../components/context';
 
 export const MasScreen = ({navigation}) => {
 
     const navigator = useNavigation();
     
+    const { signOut } = React.useContext(AuthContext);
+
     useEffect(() => {
         console.log('Mass')
     }, [])
@@ -48,7 +51,7 @@ export const MasScreen = ({navigation}) => {
                 <TouchableOpacity
                         style={styless.boton}
                         // onPress={() => navigation.replace( 'LoginScreen' )}
-                        onPress={() => navigation.navigate( 'LoginScreen' )}
+                        onPress={signOut}
 
                         >
                             <Icon name={'log-in-outline'} size={ 30 } color= { 'black'} />  
