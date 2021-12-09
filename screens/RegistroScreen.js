@@ -41,7 +41,7 @@ export const RegistroScreen = ({navigation}) => {
                             style={loginStyle.cajaTexto}
                             onChangeText={nombre => setNombre(nombre)}
                             value={ nombre }
-                            onSubmitEditing = {onRegister}
+                            // onSubmitEditing = {onRegister}
                             autoCapitalize = 'words'
                             autoCorrect = {false}
                     />
@@ -53,7 +53,7 @@ export const RegistroScreen = ({navigation}) => {
                             keyboardType="email-address"
                             onChangeText={email => setEmail(email)}
                             value={ email }
-                            onSubmitEditing = {onRegister}
+                            // onSubmitEditing = {onRegister}
                             autoCorrect = {false}
                     />
 
@@ -65,7 +65,7 @@ export const RegistroScreen = ({navigation}) => {
                             style={loginStyle.cajaTexto}
                             onChangeText={password => setPassword(password)}
                             value={ password }
-                            onSubmitEditing = {onRegister}
+                            // onSubmitEditing = {onRegister}
                             autoCorrect = {false}
                     />
 
