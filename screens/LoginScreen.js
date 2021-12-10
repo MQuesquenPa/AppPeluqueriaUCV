@@ -80,6 +80,7 @@ export const LoginScreen = ({route, navigation}) => {
         <KeyboardAvoidingView  style={{flex:1}}>
             <ScrollView style={loginStyle.fondo} >
                 <LogoLogin />
+                
                 <View style={loginStyle.formulario}>
 
                     {/* <Text style={loginStyle.title} >

@@ -6,18 +6,21 @@ import { TextInput } from 'react-native-paper';
 import { loginStyle } from '../theme/loginTheme';
 import Icon from 'react-native-vector-icons/Ionicons';
 
+
+
 export const RegistroScreen = ({navigation}) => {
     
     const [nombre, setNombre] = useState();
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
-    
+ 
     const onRegister = () => {
         console.log({nombre, email, password});
         Keyboard.dismiss();
-    }
+     }
     
+ 
+
     const navigator = useNavigation();
     return (
         <>

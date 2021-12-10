@@ -1,13 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
-import {  View, Text} from 'react-native'
+import {  View, Text, Image} from 'react-native'
+
 
 import { MenuLateral } from './navigator/MenuLateral';
 import { LoginScreen } from './screens/LoginScreen';
 import { LoginNavigator } from './navigator/LoginNavigator';
 import { AuthContext } from './components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ActivityIndicator, Colors } from 'react-native-paper';
 
 const App = () => {
   
@@ -120,9 +122,13 @@ const App = () => {
   // if(loginState.isLoading){
     if(loginState.isLoading){
       return (
-      <View style={{flex:1,backgroundColor:'#fff'}}>
-        <Text>CARGANDO</Text>
-      </View>);
+        <View style={{flex:1,justifyContent:'center',alignItems:'center',}}>
+          {/* <ActivityIndicator animating={true} color={Colors.red800} /> */}
+          <ActivityIndicator animating={true} color={'red'} />
+
+          <Text>CARGANDO</Text>
+        </View>
+      );
     }  
     return (
       <>
