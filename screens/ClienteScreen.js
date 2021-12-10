@@ -21,7 +21,7 @@ export const ClienteScreen = ({navigation}) => {
     setTelefono('');
   };
 
-  const postDataPeluquero=async()=>{
+  const postDataCliente=async()=>{
     try{
         let head={'Content-Type': 'application/json'};
         let dato={nombre:nombre, apellido:apellido, direccion:direccion, telefono:telefono}
@@ -93,14 +93,14 @@ export const ClienteScreen = ({navigation}) => {
               </View>
               
               <View>
-                <TouchableOpacity onPress={() =>{postDataPeluquero(); navigation.navigate('ClientesAllScreen') }}>
+                <TouchableOpacity onPress={() =>{postDataCliente(); navigation.navigate('ClientesAllScreen') }}>
 
                 
                 <View style={styles.boton}>
                     <Text style={styles.botonText}>Registrar</Text>
                 </View>
                 </TouchableOpacity>
-            </View>
+              </View>
           </ScrollView>
 
        

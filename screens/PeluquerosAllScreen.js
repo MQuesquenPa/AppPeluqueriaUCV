@@ -11,14 +11,22 @@ import { peluqueroStyles } from '../theme/peluqueroTheme';
 
 export const PeluquerosAllScreen = ({ navigation}) => {
     
+    
     const [nombre, setNombre] = useState('');
     const [nombreUpdate, setNombreUpdate] = useState('');
-
+    
     const [apellido, setApellido] = useState('');
     const [direccion, setDireccion] = useState('');
     const [telefono, setTelefono] = useState('');
     const [idEdit, setIdEdit] = useState('');
+    
+    useEffect(() => {
+        console.log('PeluquerosAll');
+        console.log(getData());
+        getData();
+    }, [])
 
+    
     const limpiar = () => {
       console.log({nombre, apellido, direccion, telefono});
       setNombre('');
@@ -39,11 +47,6 @@ export const PeluquerosAllScreen = ({ navigation}) => {
     const [loading,setLoading]=useState(true);
     const [data,setData]=useState([]);
 
-    useEffect(() => {
-        console.log('PeluquerosAll');
-        console.log(getData());
-        getData();
-    }, [])
 
 
     const getData=async()=>{

@@ -94,14 +94,14 @@ export const PeluqueroScreen = ({ navigation}) => {
               </View>
               
               <View>
-                <TouchableOpacity onPress={() =>{ navigation.navigate('PeluquerosAllScreen')
-                  postDataPeluquero(); 
-                  }}>
+                <TouchableOpacity onPress={() =>{postDataPeluquero(); navigation.navigate('PeluquerosAllScreen') }}>
+
+                
                 <View style={styles.boton}>
                     <Text style={styles.botonText}>Registrar</Text>
                 </View>
                 </TouchableOpacity>
-            </View>
+              </View>
           </ScrollView>
 
        
