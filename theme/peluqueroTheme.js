@@ -129,7 +129,7 @@ export const peluqueroStyles =  StyleSheet.create({
         borderRadius: 100,  
         backgroundColor: 'red', 
         position: 'absolute',
-        zIndex: 1
+        zIndex:9
       },
       botonX: {
         padding: 5, 

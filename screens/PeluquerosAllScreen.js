@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { View ,  StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
-import { Provider as PaperProvider, Modal, Portal, Text, TextInput} from "react-native-paper";
+import { View ,  Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import { Provider as PaperProvider, Modal, Portal,  TextInput} from "react-native-paper";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
 
@@ -46,7 +46,6 @@ export const PeluquerosAllScreen = ({ navigation}) => {
 
     const [loading,setLoading]=useState(true);
     const [data,setData]=useState([]);
-
 
 
     const getData=async()=>{

@@ -10,8 +10,12 @@ import { useNavigation } from '@react-navigation/core'
 
 export const ReservaScreen = ({navigation}) => {
 
+
+
     useEffect(() => {
         console.log('Reservas');
+        console.log(getDataInitial());
+
         getDataInitial();
     }, [])
 
@@ -23,18 +27,25 @@ export const ReservaScreen = ({navigation}) => {
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
-    const [fecha, setFecha] = useState('Ingrese el horario');
+    
     const [descripcion, setDescripcion] = useState('');
     const [cliente, setCliente] = useState('');
+    const [fecha, setFecha] = useState('Ingrese el horario');
     const [precio, setPrecio] = useState('');
 
-
-
-    
-    // peluqueroElegido es el id que estoy eligiendo
+        // peluqueroElegido es el id que estoy eligiendo
     const [peluqueroElegido,setPeluqueroElegido]=useState(null);
     const [peluqueros, setPeluqueros]=useState([]);
     
+
+    const limpiar = () => {
+        setDescripcion('');
+        setCliente('');
+        setFecha('Ingrese el horario');
+        setPrecio('');
+      };
+
+
 
     const showMode = (currentMode) => {
         setShow(true);
@@ -57,7 +68,7 @@ export const ReservaScreen = ({navigation}) => {
 
         let tempDate = new Date(currentDate);
 
-        let newDataDate=moment(tempDate).format("YYYY-MM-DD HH:mm:ss");
+        let newDataDate=moment(tempDate).format("YYYY-MM-DD HH:mm");
         setFecha(newDataDate);
     };
 
@@ -69,8 +80,9 @@ export const ReservaScreen = ({navigation}) => {
             if(dataResponse.data.status=="success"){
                                
                 let tempData=dataResponse.data.dataPeluquero;
+                console.log(tempData);
                 let dataArrayFixed = tempData.map(item => {
-                    return {label:item.nombre,value:item._id}; 
+                    return {label:item.nombre,value:item._id};
                 });
                 setPeluqueros(dataArrayFixed);
             }else{
@@ -89,7 +101,10 @@ export const ReservaScreen = ({navigation}) => {
                         
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
+                alert('se registro');
+                
             }else{
+                alert('NO se registro');
                 console.log("error");
                 console.log(dataResponse.data);
             }
@@ -112,6 +127,7 @@ export const ReservaScreen = ({navigation}) => {
                 <Text style={styles.texto}> REGISTRO DE RESERVAS</Text> 
             </View>
         <ScrollView>
+            <View style={{}}>
             <View style={styles.cajaTexto}>
             
                 <TextInput
@@ -170,23 +186,28 @@ export const ReservaScreen = ({navigation}) => {
                {peluqueros ? <DropDownPicker
                         placeholder="Selecciona El Peluquero"
                         onChangeItem={(e)=>{setPeluqueroElegido(e.value)}}
-                        containerStyle={{height:42}}
-                        style={{height:42}}
                         globalTextStyle={{fontSize:11}}
-                        placeholderStyle={{color:"gray"}}
+                        containerStyle={{ height: 42 }}
+                        style={{height: 42 }}
+                        dropDownStyle={{ backgroundColor: '#fafafa' }}
+                        dropDownMaxHeight={300}
+                        labelStyle={{ fontSize: 11 }}
+                        placeholderStyle={{color:"gray", fontSize: 11}}
                         value={peluqueros}
                         itemStyle={{
-                            justifyContent: 'flex-start',borderColor:'rgba(0,0,0,0.045)'
-                    }}
+                            justifyContent: 'flex-start',borderColor:'rgba(0,0,0,0.045)',
+                        }}
                     items={peluqueros}
-                /> : null}
+                /> 
+                : null}
             </View>
             <View>
-                <TouchableOpacity onPress={() =>{postDataReserva()}}>
+                <TouchableOpacity onPress={() =>{postDataReserva(); limpiar();}}>
                 <View style={styles.boton}>
                     <Text style={styles.botonText}>Registrar</Text>
                 </View>
                 </TouchableOpacity>
+            </View>
             </View>
             </ScrollView>
 
@@ -243,6 +264,7 @@ const styles = StyleSheet.create({
     cajaTexto:{
         // backgroundColor: 'green',
         marginTop: 20,
+        
         paddingTop: 0,
         marginHorizontal:10
     },
@@ -273,7 +295,7 @@ const styles = StyleSheet.create({
     boton:{
         backgroundColor: '#5856D6',
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 30,
         borderRadius: 100,
         height: 40,
         marginHorizontal: 40
