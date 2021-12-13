@@ -316,9 +316,6 @@ export  const ReservasAllScreen = ({ navigation}) => {
                                             : null}
                                         </View>
                                     </View>
-
-{/* asdljojhsalifbsagi */}
-      
                                 <View style={styles.botonModal}>
                                     <TouchableOpacity onPress={() =>{
                                         postUpdateData(); 

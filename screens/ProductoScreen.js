@@ -2,21 +2,16 @@ import React, { useState, useEffect } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, ScrollView, Image  } from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { TextInput } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/core'
 import BottomSheet from 'reanimated-bottom-sheet';
 
-import Animated from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
 import apiCall from '../services/api';
-
 import ImagePicker from 'react-native-image-crop-picker';
 
 
 
-export const ProductoScreen = ({navigation}) => {
-    
+export const ProductoScreen = ({navigation}) => {   
     useEffect(() => {
-        console.log('Producto');
         getDataInitial();
     }, [])
 
@@ -33,6 +28,19 @@ export const ProductoScreen = ({navigation}) => {
 
     const [imageUri, setImageUri] = useState('')
 
+
+    const generateFileName=(val)=>{
+        return  val.split('/').pop();
+    }
+      
+    const generateType=(val)=>{
+        let match = /\.(\w+)$/.exec(val);
+        if(match==="mp4"){
+            return match ? `video/${match[1]}` : `video`;
+        }else{
+            return match ? `image/${match[1]}` : `image`;
+        }    
+    }
 
     const getDataInitial=async()=>{
         try{
@@ -54,6 +62,7 @@ export const ProductoScreen = ({navigation}) => {
             console.log(e);
         }
     }
+
     ////////////////////////////////////////
     const TakePhotoFromCamera=()=>{
         ImagePicker.openCamera({
@@ -61,18 +70,10 @@ export const ProductoScreen = ({navigation}) => {
             cropping: true,
             width: 350,
             height: 350,
-            // width: image.width,
-            // height: image.height,
-            // width: Dimensions.get("window").width,
-            // height: Dimensions.get("window").height+insets.top,
             compressImageQuality:0.9
           }).then(image => {
               console.log(image);
-              setImageUri(image.path);
-            // setModalPhoto(false);
-            // setTypeMedia(1);
-            // setMedia(image.path);
-
+              setImageUri(image.path)
           })
     }
 
@@ -117,6 +118,37 @@ export const ProductoScreen = ({navigation}) => {
             </TouchableOpacity>
         </View>
     );
+
+    const registerProduct=async()=>{
+    const formData = new FormData();
+      let filename=generateFileName(imageUri);
+      let typeImage = generateType(filename);
+
+      formData.append('nombre',nombre);
+      formData.append('descripcion',descripcion);
+      formData.append('stock',stock);
+      formData.append('precio',precio);
+      formData.append('categoria',categoriaElegida);
+
+      formData.append('foto',{
+        uri: imageUri,
+       type: typeImage, 
+       name: filename,
+      });
+
+      try{
+        let method='POST';
+        let url="nuevo-producto-imagen";
+        let data=formData;
+        let head={Accept: 'application/json','Content-Type': 'multipart/form-data'};
+        const responseData = await apiCall(method,url,data,head);
+        console.log(responseData.data);
+      }catch(e){
+          console.log(e);
+          res.json("error");
+      }
+  
+    }
 
     return (
         <>
@@ -184,7 +216,7 @@ export const ProductoScreen = ({navigation}) => {
                         style={{height:42}}
                         globalTextStyle={{fontSize:11}}
                         placeholderStyle={{color:"gray"}}
-                        value={categorias}
+                        value={categoriaElegida}
                         itemStyle={{
                             justifyContent: 'flex-start',borderColor:'rgba(0,0,0,0.045)'
                     }}
@@ -203,11 +235,12 @@ export const ProductoScreen = ({navigation}) => {
                 <TouchableOpacity onPress={() => showMode()} >
                 { imageUri ? <Image
                     source={{uri:imageUri}}
+                    resizeMode={"contain"}
                     style={{
                     marginTop: 50,
                     marginBottom: 30,
-                    height: 130,
-                    width: 200,
+                    height: 300,
+                    width: 300,
                     // borderRadius: 100,
                     borderWidth: 2,
                     borderColor: 'black',
@@ -221,6 +254,12 @@ export const ProductoScreen = ({navigation}) => {
                 </TouchableOpacity>
                 
             </View>
+
+            <TouchableOpacity
+                style={styles.panelButton}
+                onPress={registerProduct}>
+                <Text style={styles.panelButtonTitle}>Registrar</Text>
+            </TouchableOpacity>
 
             </ScrollView> 
           

@@ -13,8 +13,6 @@ import { ActivityIndicator, Colors } from 'react-native-paper';
 
 const App = () => {
   
-  // const [isLoading, setIsLoading] = React.useState(true);
-  const [userToken, setUserToken] = React.useState(false);
 
   const initialLoginState = {
     isLoading: true,
@@ -58,32 +56,15 @@ const App = () => {
 
 
   const authContext = React.useMemo(() => ({
-    signIn: async(userName, password) => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
-        console.log(userName, password);
-
-        let userToken;
-        userToken = null;
-        if( userName === 'user' && password === 'pass') {
-          try{
-            userToken = 'dfgdfg';
-            await AsyncStorage.setItem('userToken', userToken)
-          }
-          catch(e){
-            console.log(e);
-          }
-          
+    signIn: async(dataId) => {
+        try{
+          await AsyncStorage.setItem('userToken', dataId)
+        }catch(e){
+          console.log(e);
         }
-        else{
-          console.log('2');
-        }
-        console.log('user token: ', userToken);
-        dispatch({ type: 'LOGIN', id: userName, token: userToken });
+        dispatch({ type: 'LOGIN', id: "1", token: dataId});
     },
     signOut: async() => {
-        // setUserToken(null);
-        // setIsLoading(false);
         try{
           await AsyncStorage.removeItem('userToken');
         }
@@ -92,10 +73,6 @@ const App = () => {
         }
         dispatch({ type: 'LOGOUT'});
 
-    },
-    signUp: () => {
-        // setUserToken('fgkj');
-        // setIsLoading(false);
     }
   }));
 
@@ -106,8 +83,7 @@ const App = () => {
         let userToken;
         userToken = null;
         try{
-          userToken = await AsyncStorage.getItem('userToken')
-
+          userToken = await AsyncStorage.getItem('userToken');
         }
         catch(e){
           console.log(e);
@@ -130,6 +106,7 @@ const App = () => {
         </View>
       );
     }  
+    
     return (
       <>
 
@@ -137,12 +114,9 @@ const App = () => {
           <NavigationContainer >
           {loginState.userToken  ? 
               <MenuLateral />
-            
             :
             <LoginNavigator />
           }
-              
-            {/* <MenuLateral /> */}
           </NavigationContainer>        
         </AuthContext.Provider>
       </>

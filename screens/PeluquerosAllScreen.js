@@ -129,14 +129,12 @@ export const PeluquerosAllScreen = ({ navigation}) => {
                 {data.length>0 ? 
                     data.map((item, index)=>{
                         return(
-                            <>
-                            {/* <Text key={index}>{item.nombre}</Text> */}
-                            <View style={peluqueroStyles.cajas}>
+                            <View key={index} style={peluqueroStyles.cajas}>
                                 <View style={peluqueroStyles.caja}>
                                     <View style={peluqueroStyles.imagen}>
                                         <Icon name="calendar-outline" size={40} color="#5856D6"/>
                                     </View>
-                                    <View key={index} style={peluqueroStyles.textoMedio}>
+                                    <View style={peluqueroStyles.textoMedio}>
                                         <Text >Nombre: {item.nombre}</Text>
                                         <Text >Apellido: {item.apellido}</Text>
                                         <Text >Telefono: {item.telefono}</Text>
@@ -161,7 +159,6 @@ export const PeluquerosAllScreen = ({ navigation}) => {
                                     </View>
                                 </View>
                             </View>
-                            </>
                         )
                         
                     })

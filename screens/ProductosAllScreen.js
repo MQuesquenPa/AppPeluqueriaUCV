@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View , Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
+import { View , Text, StyleSheet, TouchableOpacity, ScrollView, Image} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
 import { loginStyle } from '../theme/loginTheme';
@@ -56,7 +56,11 @@ export const ProductosAllScreen = ({ navigation}) => {
                             <View style={styles.cajas}>
                                 <View style={styles.caja}>
                                     <View style={styles.imagen}>
-                                        <Icon name="calendar-outline" size={40} color="#5856D6"/>
+                                        {/* <Icon name="calendar-outline" size={40} color="#5856D6"/> */}
+                                        <Image id={id.imagen}
+                                            source = {{uri:item.imagen}}
+                                            style = {{width: 50, height: 100 }}
+                                        />
                                     </View>
                                     <View style={styles.textoMedio}>
                                         <Text key={index}>Nombre: {item.nombre}</Text>
