@@ -1,24 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { View , Text, StyleSheet, TouchableOpacity, ScrollView, Image} from 'react-native'
+import { View , StyleSheet, TouchableOpacity, ScrollView, Image} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
-import { loginStyle } from '../theme/loginTheme';
 import apiCall from '../services/api';
-
+import { Provider as PaperProvider, Modal, Portal, Text, TextInput, ActivityIndicator} from "react-native-paper";
+import { peluqueroStyles } from '../theme/peluqueroTheme';
 import { ProductosNavigator } from '../navigator/ProductosNavigator';
 
 
 export const ProductosAllScreen = ({ navigation}) => {
 
+    const [nombre, setNombre] = useState('');
+    const [stock, setStock] = useState('');
+    const [stockUpdate, setStockUpdate] = useState('');
 
     const [loading,setLoading]=useState(true);
     const [data,setData]=useState([]);
+    const [visible, setVisible] = useState(false);
+    const [idEdit, setIdEdit] = useState('');
 
     useEffect(() => {
         console.log('Productos');
         getData();
     }, [])
 
+    const hideModalNew = () => {
+        setVisible(false);
+    }
 
     const getData=async()=>{
         try{
@@ -34,9 +42,58 @@ export const ProductosAllScreen = ({ navigation}) => {
         }
     }
 
+    const postUpdateData=async()=>{
+        try{
+            let head={'Content-Type': 'application/json'};
+            let url = 'update-producto-by-name';
+            let dato={nombre: nombre, nuevoStock:stock}
+            let dataResponse = await apiCall('POST', url, dato, head);
+            if(dataResponse.data.status=="success"){
+                console.log(dataResponse.data);
+                alert('se actualizo');
+                getData();
+                hideModalNew(); 
+                
+            }else{
+                console.log("error");
+                console.log(dataResponse.data);
+                alert('NO se actualizo');
+            }
+            
+        }catch(e){
+            console.log(e);
+        }
+    }
+
+    const postDeleteData=async()=>{
+        try{
+            let head={'Content-Type': 'application/json'};
+            let url = 'delete-producto-by-name';
+            let dato={nombre:nombre, _id: idEdit}
+            let dataResponse = await apiCall('POST', url, dato, head);
+            if(dataResponse.data.status=="success"){
+                console.log(dataResponse.data);
+                alert('se elimino');
+                getData();
+                hideModalNew(); 
+                
+            }else{
+                console.log("error");
+                console.log(dataResponse.data);
+                alert('NO se elimino');
+            }
+            
+        }catch(e){
+            console.log(e);
+        }
+    }
+    
+
+
+
     return (
         <>
-            
+        <PaperProvider >
             <View style={styles.titulo}>
                 <TouchableOpacity onPress={() => { getData() }}>
                     <Text style={styles.texto}>Productos</Text>
@@ -71,8 +128,15 @@ export const ProductosAllScreen = ({ navigation}) => {
                                     </View>
                                     <View style={styles.imagenDerecha}>
                                         <TouchableOpacity
-                                            onPress={() => {}}
-                                        >
+                                            onPress={() => {
+                                                setVisible(true); 
+                                                setNombre(item.nombre);
+                                                setStock(item.stock.toString());
+                                                setIdEdit(item._id);
+                                                setStockUpdate(item.stock.toString());
+
+
+                                            }}>
                                             <Icon name="caret-forward-outline" size={40} color="#5856D6"/>
 
                                         </TouchableOpacity>
@@ -83,29 +147,57 @@ export const ProductosAllScreen = ({ navigation}) => {
                         )
                         
                     })
-                : null}
-                    {/* <View style={styles.cajas}>
-                        <View style={styles.caja}>
-                            <View style={styles.imagen}>
-                                <Icon name="calendar-outline" size={40} color="#5856D6"/>
-                            </View>
-                            <View style={styles.textoMedio}>
-                                <Text>TINTE</Text>
-                                <Text>juego </Text>
-                                <Text>5 UNID</Text>
+                : 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center', marginTop: '50%'}}>
+                    
+                    <ActivityIndicator animating={true} color={'red'} />
+
+                    <Text>CARGANDO</Text>
+                    </View>
+                }
+                <Portal>
+                        <Modal visible={visible} onDismiss={hideModalNew} contentContainerStyle={{
+                            backgroundColor: 'white',
+                            padding: 20,
+                            width:'80%',
+                            alignSelf:'center'}}>
+                            <View>
+                                <View style={peluqueroStyles.titulo}>
+                                    <Text style={peluqueroStyles.texto}>PRODUCTO</Text> 
+                                </View>
+                                <View style={styles.cajaTexto}>
+                                    <TextInput
+                                        mode='outlined'
+                                        label="Stock"
+                                        keyboardType="numeric"
+                                        placeholder="Ingrese el stock de productos"
+                                        onChangeText={stock => setStock(stock)}
+                                        value= {stock}
+                                    />
+                                
+                                </View>
+                                <View>
+                                    <TouchableOpacity onPress={() =>{postUpdateData()}}>
+
+                                    
+                                    <View style={peluqueroStyles.boton}>
+                                        <Text style={peluqueroStyles.botonText}>Actualizar</Text>
+                                    </View>
+                                    </TouchableOpacity>
+
+                                    
+                                    <TouchableOpacity onPress={() =>{postDeleteData()}}>
+                                    <View style={peluqueroStyles.botonDelete}>
+                                        <Text style={peluqueroStyles.botonText}>Eliminar</Text>
+                                    </View>
+                                    </TouchableOpacity>
+                                </View>
 
                             </View>
-                            <View style={styles.imagenDerecha}>
-                                <TouchableOpacity
-                                    onPress={() => {}}
-                                >
-                                    <Icon name="caret-forward-outline" size={40} color="#5856D6"/>
-
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View> */}
+                        </Modal>
+                </Portal>
             </ScrollView>
+        </PaperProvider>
         </>
     )
 }

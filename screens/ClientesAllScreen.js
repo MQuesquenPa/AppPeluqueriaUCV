@@ -2,11 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { View ,  StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
-
 import { peluqueroStyles } from '../theme/peluqueroTheme';
-
-import { Provider as PaperProvider, Modal, Portal, Text, TextInput} from "react-native-paper";
-
+import { Provider as PaperProvider, Modal, Portal, Text, TextInput, ActivityIndicator} from "react-native-paper";
 import apiCall from '../services/api';
 
 export const ClientesAllScreen = ({navigation}) => {
@@ -37,7 +34,7 @@ export const ClientesAllScreen = ({navigation}) => {
         setTelefono('');
     };
   
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
 
     const hideModalNew = () => {
         setVisible(false);
@@ -126,14 +123,13 @@ export const ClientesAllScreen = ({navigation}) => {
                 {data.length>0 ? 
                     data.map((item,index)=>{
                         return(
-                            <>
-                            {/* <Text key={index}>{item.nombre}</Text> */}
-                            <View style={styles.cajas}>
+                            
+                            <View key={index} style={styles.cajas}>
                                 <View style={styles.caja}>
                                     <View style={styles.imagen}>
                                         <Icon name="calendar-outline" size={40} color="#5856D6"/>
                                     </View>
-                                    <View key={index} style={styles.textoMedio}>
+                                    <View  style={styles.textoMedio}>
                                         <Text >Nombre: {item.nombre}</Text>
                                         <Text >Apellido: {item.apellido}</Text>
                                         <Text >Telefono: {item.telefono}</Text>
@@ -149,7 +145,6 @@ export const ClientesAllScreen = ({navigation}) => {
                                                 setTelefono(item.telefono.toString());
                                                 setIdEdit(item._id)
                                                 setNombreUpdate(item.nombre)
-                                                console.log(item.telefono, item.direccion, item.apellido, item.nombre, item._id)
                                             }}
                                         >
                                             <Icon name="caret-forward-outline" size={40} color="#5856D6"/>
@@ -158,12 +153,16 @@ export const ClientesAllScreen = ({navigation}) => {
                                     </View>
                                 </View>
                             </View>
-                            </>
+                   
                         )
                         
                     })
-                : null}
-
+                : 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center', marginTop: '50%'}}>
+                        <ActivityIndicator animating={true} color={'red'} />
+                        <Text>CARGANDO</Text>
+                    </View>
+                }
                 <Portal>
                         <Modal visible={visible} onDismiss={hideModalNew} contentContainerStyle={{
                             backgroundColor: 'white',

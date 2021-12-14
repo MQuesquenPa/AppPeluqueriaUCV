@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { View ,  Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
 import { Provider as PaperProvider, Modal, Portal,  TextInput} from "react-native-paper";
+import { ActivityIndicator, Colors } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
-
 import apiCall from '../services/api';
 
 import { peluqueroStyles } from '../theme/peluqueroTheme';
@@ -162,7 +162,12 @@ export const PeluquerosAllScreen = ({ navigation}) => {
                         )
                         
                     })
-                : null}
+                : 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center', marginTop: '50%'}}>
+                        <ActivityIndicator animating={true} color={'red'} />
+                        <Text>CARGANDO</Text>
+                    </View>
+                }
                 
                 
                     <Portal>

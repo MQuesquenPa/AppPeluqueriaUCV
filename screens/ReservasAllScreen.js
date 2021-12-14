@@ -5,9 +5,11 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Provider as PaperProvider, Modal, Portal, Text, TextInput} from "react-native-paper";
 import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { ActivityIndicator, Colors } from 'react-native-paper';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import apiCall from '../services/api';
+
 
 import { peluqueroStyles } from '../theme/peluqueroTheme';
 
@@ -182,8 +184,6 @@ export  const ReservasAllScreen = ({ navigation}) => {
                 {data.length>0 ? 
                     data.map((item, index)=>{
                         return(
-                            <>
-                            {/* <Text key={index}>{item.nombre}</Text> */}
                             <View key={index} style={styles.cajas}>
                                 <View style={styles.caja}>
                                     <View style={styles.imagen}>
@@ -212,11 +212,15 @@ export  const ReservasAllScreen = ({ navigation}) => {
                                     </View>
                                 </View>
                             </View>
-                            </>
                         )
                         
                     })
-                : null}
+                : 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center', marginTop: '50%'}}>
+                        <ActivityIndicator animating={true} color={'red'} />
+                        <Text>CARGANDO</Text>
+                    </View>
+                }
                 
                 <Portal>
                         <Modal visible={visible} onDismiss={hideModalNew} contentContainerStyle={{
