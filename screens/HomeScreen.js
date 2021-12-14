@@ -1,44 +1,38 @@
 import React, { useEffect,useState}  from 'react'
 
 import {Image, Button, StyleSheet, Text, View, TextInput, SafeAreaView, ScrollView } from 'react-native'
+import BottomSheet from 'reanimated-bottom-sheet';
 import { colores, styles } from '../theme/appTheme'
+import { stylesBottomSheet } from '../theme/botomSelecCam';
+import ImagePicker from 'react-native-image-crop-picker';
+import { Provider as PaperProvider, Modal, Portal,   ActivityIndicator} from "react-native-paper";
+
 
 import Icon from 'react-native-vector-icons/Ionicons';
 import apiCall from '../services/api';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export const HomeScreen = ({ navigation }) => {
+    
+    const sheetRef = React.useRef(0);
+
     const [loading,setLoading]=useState(true);
     const [data,setData]=useState([]);
+    const [text, onChangeText] = useState("ingresa un texto");
+    const [number, onChangeNumber] = useState(null);
+    const [show, setShow] = useState(false);
+    const [imageUri, setImageUri] = useState('')
+
+    const [visible, setVisible] = useState(false);
+
+    const hideModalNew = () => {
+        setVisible(false);
+    }
 
     useEffect(() => {
         getData();
     }, []);
 
-    // const getData=async()=>{
-    //     try{
-    //         let head={'Content-Type': 'application/json'};
-    //         let carpeta = 'api/users';
-    //         let dataResponse = await apiCall('GET', carpeta, null, head);
-    //         console.log(dataResponse.data);
-    //         setData(dataResponse.data);
-    //         setLoading(false);
-    //     }catch(e){
-    //         console.log(e);
-    //     }
-    // }
-
-
-    // const searchUser=async()=>{
-    //     try{
-    //         let head={'Content-Type': 'application/json'};
-    //         let carpeta = 'api/users';
-    //         let dataSend={name: "Miguel pRUEBA",age: "23",email: "miDSDDSguelon@gmail.com"};
-    //         let dataResponse = await apiCall('POST', carpeta, dataSend,head);
-    //         console.log(dataResponse.data);
-    //     }catch(e){
-    //         console.log(e);
-    //     }
-    // }
 
     const getData=async()=>{
         try{
@@ -53,28 +47,73 @@ export const HomeScreen = ({ navigation }) => {
         }
     }
 
-
-    const searchUser=async()=>{
-        try{
-            let head={'Content-Type': 'application/json'};
-            let url = 'api/users';
-            let dataSend={name: "Miguel pRUEBA",age: "23",email: "miDSDDSguelon@gmail.com"};
-            let dataResponse = await apiCall('POST', url, dataSend,head);
-            console.log(dataResponse.data.dataPeluquero);
-        }catch(e){
-            console.log(e);
-        }
+    const TakePhotoFromCamera=()=>{
+        ImagePicker.openCamera({
+            mediaType:'photo',
+            cropping: true,
+            width: 350,
+            height: 350,
+            compressImageQuality:0.9
+          }).then(image => {
+              console.log(image);
+              setImageUri(image.path)
+          })
     }
 
-    const [text, onChangeText] = React.useState("ingresa un texto");
-    const [number, onChangeNumber] = React.useState(null);
+    const TakePhotoGalery=()=>{
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true
+          }).then(image => {
+            console.log(image);
+            setImageUri(image.path);
+
+          });
+    }
+
+    const showMode = () => {
+        setShow(true);
+    };
+    
+    const hideMode = () => {
+        setShow(false);
+    };
+    const renderContent = () => (
+    
+        <View style={stylesBottomSheet.panel}>
+            <View style={{alignItems: 'center'}}>
+                <Text style={stylesBottomSheet.panelTitle}>Subir Photo</Text>
+                <Text style={stylesBottomSheet.panelSubtitle}>Elige la foto del producto</Text>
+            </View>
+            <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoFromCamera(); hideMode(); }}>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Tomar Foto</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Abrir Galeria</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={stylesBottomSheet.panelButton}
+                onPress={() => setShow(false)}>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Cancelar</Text>
+            </TouchableOpacity>
+        </View>
+    );
+
     return (
         <>
+        <PaperProvider >
             <View style={styless.titulo}>
                 <Text style={styless.texto}>FOTOS DE CORTES REALIZADOS</Text>
-                <Icon style={styless.iconoCam} name="camera-outline" size={40} color="#5856D6"/>
+                {/* /////////////////////// */}
+                <TouchableOpacity onPress={() => {setVisible(true);}} >
+                        <Icon style={styless.iconoCam} name="camera-outline" size={40} color="#5856D6"/> 
+                </TouchableOpacity>
+               
+                {/*/////////////////////////*/}
             </View>
             <ScrollView>
+
             <View style={styless.colum}>
                 <View style={styless.cajas}>
                     <Image source={require('../img/Corte03.jpg')} style={styless.imagen} />
@@ -94,8 +133,81 @@ export const HomeScreen = ({ navigation }) => {
                     <Image source={require('../img/Corte18.jpg')} style={styless.imagen}/>
                 </View>                
             </View>
-            </ScrollView>
+            {/* ////////////////////// */}
+            <Portal>
+                        <Modal visible={visible} onDismiss={hideModalNew} contentContainerStyle={{
+                            backgroundColor: 'white',
+                            padding: 20,
+                            width:'80%',
+                            alignSelf:'center'}}>
+                            
+                            <View style={styless.titulo}>
+                                <Text style={styless.texto}>FOTO</Text> 
+                            </View>
+                            {/* ///////////////// */}
+                            <TouchableOpacity onPress={() => {}} >
+                            { imageUri ? 
+                            
+                            <Image
+                                source={{uri:imageUri}}
+                                resizeMode={"contain"}
+                                style={{
+                                marginTop: 10,
+                                marginBottom: 5,
+                                height: 200,
+                                width: 240,
+                                // borderRadius: 100,
+                                borderWidth: 2,
+                                borderColor: 'black',
+                                }}
+                                />
+                                : 
+                                <Text style={{
+                                    marginTop: 10,
+                                    marginBottom: 5,
+                                    height: 100,
+                                    width: 240,
+                                    // borderRadius: 100,
+                                    borderWidth: 2,
+                                    borderColor: 'black',
+                                    }}>AGREGAR IMAGEN</Text>
+                                
+                            }
+                            </TouchableOpacity>
 
+
+                            {/* BOTONES */}
+                            <View style={styless.botonModal}>
+                            <View style={styless.panel}>
+                                
+                                <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoFromCamera(); hideMode(); }}>
+                                    <Text style={stylesBottomSheet.panelButtonTitle}>Tomar Foto</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
+                                    <Text style={stylesBottomSheet.panelButtonTitle}>Abrir Galeria</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
+                                    <Text style={stylesBottomSheet.panelButtonTitle}>Registrar</Text>
+                                </TouchableOpacity>
+                            </View>
+                            </View>
+                        </Modal>
+                    </Portal>
+                
+
+
+
+            </ScrollView>
+            {show && (
+                <BottomSheet
+                    ref={sheetRef}
+                    snapPoints={[250, 250, 0]}
+                    borderRadius={10}
+                    renderContent={renderContent}
+                    onOpenStart = {hideMode}
+                />
+            )}
+            </PaperProvider>
         </>
     )
 }

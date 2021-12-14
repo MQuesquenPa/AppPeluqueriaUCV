@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { View ,  Text, StyleSheet, TouchableOpacity, ScrollView} from 'react-native'
-import { Provider as PaperProvider, Modal, Portal,  TextInput} from "react-native-paper";
-import { ActivityIndicator, Colors } from 'react-native-paper';
+import { Provider as PaperProvider, Modal, Portal,  TextInput, ActivityIndicator} from "react-native-paper";
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
 import apiCall from '../services/api';
@@ -37,7 +36,7 @@ export const PeluquerosAllScreen = ({ navigation}) => {
 
 
 
-    const [visible, setVisible] = React.useState(false);
+    const [visible, setVisible] = useState(false);
 
     const hideModalNew = () => {
         setVisible(false);

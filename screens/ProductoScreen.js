@@ -5,8 +5,9 @@ import { TextInput } from 'react-native-paper';
 import BottomSheet from 'reanimated-bottom-sheet';
 
 import DropDownPicker from 'react-native-dropdown-picker';
-import apiCall from '../services/api';
 import ImagePicker from 'react-native-image-crop-picker';
+import apiCall from '../services/api';
+import { stylesBottomSheet } from '../theme/botomSelecCam';
 
 
 
@@ -107,21 +108,21 @@ export const ProductoScreen = ({navigation}) => {
 
     const renderContent = () => (
     
-        <View style={styles.panel}>
+        <View style={stylesBottomSheet.panel}>
             <View style={{alignItems: 'center'}}>
-                <Text style={styles.panelTitle}>Subir Photo</Text>
-                <Text style={styles.panelSubtitle}>Elige la foto del producto</Text>
+                <Text style={stylesBottomSheet.panelTitle}>Subir Photo</Text>
+                <Text style={stylesBottomSheet.panelSubtitle}>Elige la foto del producto</Text>
             </View>
-            <TouchableOpacity style={styles.panelButton} onPress={() => { TakePhotoFromCamera(); hideMode(); }}>
-                <Text style={styles.panelButtonTitle}>Tomar Foto</Text>
+            <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoFromCamera(); hideMode(); }}>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Tomar Foto</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
-                <Text style={styles.panelButtonTitle}>Abrir Galeria</Text>
+            <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Abrir Galeria</Text>
             </TouchableOpacity>
             <TouchableOpacity
-                style={styles.panelButton}
+                style={stylesBottomSheet.panelButton}
                 onPress={() => setShow(false)}>
-                <Text style={styles.panelButtonTitle}>Cancelar</Text>
+                <Text style={stylesBottomSheet.panelButtonTitle}>Cancelar</Text>
             </TouchableOpacity>
         </View>
     );
@@ -292,48 +293,14 @@ export const ProductoScreen = ({navigation}) => {
 }
 
 const styles = StyleSheet.create({
-    panel: {
-        padding: 20,
-        backgroundColor: '#dddddd',
-        paddingTop: 20,
-        borderTopLeftRadius: 50,
-        borderTopRightRadius: 50,
-        shadowColor: '#000000',
-        shadowOffset: {width: 0, height: 0},
-        shadowRadius: 5,
-        shadowOpacity: 0.4,
-    },
-    panelTitle: {
-        fontSize: 27,
-        height: 35,
-      },
-      panelSubtitle: {
-        fontSize: 14,
-        color: 'black',
-        height: 30,
-        
-      },
-      panelButton: {
-        padding: 10,
-        borderRadius: 10,
-        backgroundColor: '#5856D6',
-        alignItems: 'center',
-        marginVertical: 3,
-      },
-      panelButtonTitle: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: 'white',
-        
-      },
-      btnRegistrar:{
+    btnRegistrar:{
         padding: 10,
         borderRadius: 10,
         backgroundColor: '#5856D6',
         alignItems: 'center',
         marginVertical: 20,
         marginHorizontal: 50,
-      },
+    },
 
     //////////////////
     titulo: {
