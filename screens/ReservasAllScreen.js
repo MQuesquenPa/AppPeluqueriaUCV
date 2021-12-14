@@ -184,7 +184,7 @@ export  const ReservasAllScreen = ({ navigation}) => {
                         return(
                             <>
                             {/* <Text key={index}>{item.nombre}</Text> */}
-                            <View style={styles.cajas}>
+                            <View key={index} style={styles.cajas}>
                                 <View style={styles.caja}>
                                     <View style={styles.imagen}>
                                         <Icon name="calendar-outline" size={40} color="#5856D6"/>

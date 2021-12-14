@@ -71,7 +71,8 @@ export const HomeScreen = ({ navigation }) => {
     return (
         <>
             <View style={styless.titulo}>
-                <Text style={styless.texto}> FOTOS DE CORTES REALIZADOS</Text> 
+                <Text style={styless.texto}>FOTOS DE CORTES REALIZADOS</Text>
+                <Icon style={styless.iconoCam} name="camera-outline" size={40} color="#5856D6"/>
             </View>
             <ScrollView>
             <View style={styless.colum}>
@@ -94,39 +95,7 @@ export const HomeScreen = ({ navigation }) => {
                 </View>                
             </View>
             </ScrollView>
-            {/* <View style={styles.globalMargin} >
-                <Text style={styless.titulo} >{loading ? "Cargando ----":"home cargo"}</Text>
-                <Button
-                title= "ir a pagina 2"
-                onPress={searchUser}
-                />
-                <Text>
-                    <Icon name="logo-npm" size={130} color= { colores.primary } />
-                </Text>
-                {data.length>0 ? 
-                    data.map((item,index)=>{
-                        return(
-                            <Text key={index}>{item.nombre}</Text>
-                        )
-                    })
-                : null}
-                <SafeAreaView>
-                    <TextInput
-                    style={styles.input}
-                    onChangeText={onChangeText}
-                    value={text}
 
-
-                    />
-                    <TextInput 
-                    style={styles.input}
-                    onChangeText={onChangeNumber}
-                    value={number}
-                    placeholder="0"
-                    keyboardType="numeric" 
-                    />
-                </SafeAreaView>
-            </View>   */}
         </>
     )
 }
@@ -135,15 +104,20 @@ const styless = StyleSheet.create({
     titulo: {
         // backgroundColor: 'red',
         alignSelf: 'center',
-        marginTop: 20
+        marginTop: 20,
+        flexDirection: 'row',
     },
     texto: {
-        fontSize: 20,
+        fontSize: 19,
         fontWeight: 'bold',
-        
+
+    },
+    iconoCam:{
+        marginLeft: 20,
+        marginTop: -10 ,
     },
     colum:{
-        
+
         flexDirection: 'row',
         alignSelf: 'center',
     },
@@ -153,7 +127,7 @@ const styless = StyleSheet.create({
     },
     cajas:{
         padding: 10,
-        
+
     },
     imagen:{
         width: 165,
@@ -161,6 +135,6 @@ const styless = StyleSheet.create({
         marginTop: 20,
         borderWidth: 1,
         borderColor: 'rgba(0,0,0,0.2)'
-        
+
     }
 })

@@ -28,6 +28,13 @@ export const ProductoScreen = ({navigation}) => {
 
     const [imageUri, setImageUri] = useState('')
 
+    const limpiar= () => {
+        setNombre('');
+        setDescripcion('');
+        setStock('');
+        setPrecio('');
+        setImageUri('');
+    }
 
     const generateFileName=(val)=>{
         return  val.split('/').pop();
@@ -224,6 +231,7 @@ export const ProductoScreen = ({navigation}) => {
                 /> : null}
             </View>
             {/* BOTONES DE LA IMG */}
+            <Text style={{ padding: 15}}>Imagen:</Text>
             <View
                 style={{
                 flex: 1,
@@ -237,8 +245,8 @@ export const ProductoScreen = ({navigation}) => {
                     source={{uri:imageUri}}
                     resizeMode={"contain"}
                     style={{
-                    marginTop: 50,
-                    marginBottom: 30,
+                    marginTop: 10,
+                    marginBottom: 5,
                     height: 300,
                     width: 300,
                     // borderRadius: 100,
@@ -246,18 +254,22 @@ export const ProductoScreen = ({navigation}) => {
                     borderColor: 'black',
                     }}
                     />
-                : null}
-                    {/* <Text style={{position: 'absolute', marginVertical: 70, backgroundColor: 'red', marginHorizontal:40}}>
-                        Seleccionars Imagen</Text> */}
-                        <Text style={{marginTop:50}} >
+                    :
+                    <TouchableOpacity onPress={() => showMode()} >
+                    <Text style={{marginTop:5, color:'blue', textDecorationLine:'underline'}} >
                         Seleccionar Imagen</Text>
+
+                    </TouchableOpacity>
+                }
                 </TouchableOpacity>
                 
             </View>
 
             <TouchableOpacity
-                style={styles.panelButton}
-                onPress={registerProduct}>
+                style={styles.btnRegistrar}
+                onPress={() => {registerProduct(); limpiar(); navigation.navigate( 'ProductosAllScreen' );}}
+                // onPress={{registerProduct(); limpiar(); }}
+                >
                 <Text style={styles.panelButtonTitle}>Registrar</Text>
             </TouchableOpacity>
 
@@ -312,30 +324,17 @@ const styles = StyleSheet.create({
         fontSize: 17,
         fontWeight: 'bold',
         color: 'white',
+        
       },
-    // dropDownPicker:{
-    //     backgroundColor: 'red',
-    //     alignItems: 'center',
-    //     padding: 16,
-    //     height: 450,
-    // },
-    
-    // tituloDownP:{
-    //     fontSize: 25,
-    // },
-    // subtituloDownP:{
-    //     // color: 'gray'
-    // },
-    // btnTomarFoto:{
-    //     width: 50,
-    //     marginHorizontal: 10,  
-    //     backgroundColor: 'white',
-        
-    // },
-    // btnTxtTomarFoto:{
-        
-        
-    // },
+      btnRegistrar:{
+        padding: 10,
+        borderRadius: 10,
+        backgroundColor: '#5856D6',
+        alignItems: 'center',
+        marginVertical: 20,
+        marginHorizontal: 50,
+      },
+
     //////////////////
     titulo: {
         // backgroundColor: 'red', 

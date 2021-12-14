@@ -175,9 +175,7 @@ export const ClientesAllScreen = ({navigation}) => {
                                         
                                     <TouchableOpacity onPress={() =>{hideModalNew()}}>
 
-                                        <View style={peluqueroStyles.botonSalir}>
-                                            <Text style={peluqueroStyles.botonX}>x</Text>
-                                        </View>
+                                        
                                     </TouchableOpacity>
                                         
                                 

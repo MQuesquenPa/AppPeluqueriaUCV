@@ -38,7 +38,9 @@ export const ProductosAllScreen = ({ navigation}) => {
         <>
             
             <View style={styles.titulo}>
-                <Text style={styles.texto}>Productos</Text>
+                <TouchableOpacity onPress={() => { getData() }}>
+                    <Text style={styles.texto}>Productos</Text>
+                </TouchableOpacity>
                 
                 <View style={styles.iconoBuscar}>
                     <TouchableOpacity onPress={() =>navigation.navigate( 'ProductoScreen' )}>
@@ -51,21 +53,20 @@ export const ProductosAllScreen = ({ navigation}) => {
                 {data.length>0 ? 
                     data.map((item,index)=>{
                         return(
-                            <>
-                            {/* <Text key={index}>{item.nombre}</Text> */}
-                            <View style={styles.cajas}>
+                            
+                            <View key={index} style={styles.cajas}>
                                 <View style={styles.caja}>
                                     <View style={styles.imagen}>
                                         {/* <Icon name="calendar-outline" size={40} color="#5856D6"/> */}
-                                        <Image id={id.imagen}
+                                        <Image 
                                             source = {{uri:item.imagen}}
                                             style = {{width: 50, height: 100 }}
                                         />
                                     </View>
                                     <View style={styles.textoMedio}>
-                                        <Text key={index}>Nombre: {item.nombre}</Text>
-                                        <Text key={index}>Descripcion: {item.descripcion}</Text>
-                                        <Text key={index}>{item.stock} unidades</Text>
+                                        <Text >Nombre: {item.nombre}</Text>
+                                        <Text >Descripcion: {item.descripcion}</Text>
+                                        <Text >{item.stock} unidades</Text>
 
                                     </View>
                                     <View style={styles.imagenDerecha}>
@@ -78,7 +79,7 @@ export const ProductosAllScreen = ({ navigation}) => {
                                     </View>
                                 </View>
                             </View>
-                            </>
+                            
                         )
                         
                     })

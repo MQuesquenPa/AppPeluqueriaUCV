@@ -174,15 +174,6 @@ export const PeluquerosAllScreen = ({ navigation}) => {
                             <View>
                             <View style={peluqueroStyles.titulo}>
                                 <Text style={peluqueroStyles.texto}>PELUQUERO</Text> 
-                                        
-                                    <TouchableOpacity onPress={() =>{hideModalNew()}}>
-
-                                        <View style={peluqueroStyles.botonSalir}>
-                                            <Text style={peluqueroStyles.botonX}>x</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                        
-                                
                             </View>
                             <View style={peluqueroStyles.cajaTexto}>
                                 <TextInput
