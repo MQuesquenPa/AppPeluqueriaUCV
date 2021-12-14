@@ -31,7 +31,7 @@ export const MasScreen = ({navigation}) => {
                 {/* <Image 
                     source={require('../img/logo-react-native.png')}
                 /> */}
-                <Icon name={'alert-circle-outline'} size={ 200 } color= { 'blue'} />  
+                <Icon name={'alert-circle-outline'} size={ 200 } color= { '#5856D6'} />  
             </View>
             <View style={styless.contenedor}>
                 <TouchableOpacity 

@@ -42,8 +42,9 @@ const MenuInterno = () =>{
     <DrawerContentScrollView>
       <View style = { styles.containerAvatar }>
         <Image 
-          source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/1024px-Avatar_icon_green.svg.png'
-        }}
+          source={require('../img/userApp.png')}
+          // source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Avatar_icon_green.svg/1024px-Avatar_icon_green.svg.png'
+        // }}
         style={ styles.avatar }
         />
       </View>

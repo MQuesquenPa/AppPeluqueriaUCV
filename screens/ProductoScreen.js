@@ -161,7 +161,7 @@ export const ProductoScreen = ({navigation}) => {
         <>
             <TouchableOpacity 
                 style={styles.btnVolver}
-                onPress={() => navigation.navigate( 'ProductosAllScreen' )}
+                onPress={() => {limpiar(); navigation.navigate( 'ProductosAllScreen' )}}
             >
                 <Icon name={'chevron-back-outline'} size={ 22 } color= { '#030099'} />
                 <Text style={styles.textoBtn}>volver</Text>
