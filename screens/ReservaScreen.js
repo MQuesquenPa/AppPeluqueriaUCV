@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import DropDownPicker from 'react-native-dropdown-picker';
 import moment from 'moment';
 import { useNavigation } from '@react-navigation/core'
+import Toast from 'react-native-simple-toast';
+
 
 export const ReservaScreen = ({navigation}) => {
 
@@ -101,10 +103,10 @@ export const ReservaScreen = ({navigation}) => {
                         
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
-                alert('se registro');
+                Toast.showWithGravity('¡Se Registro la Reserva!', Toast.LONG, Toast.TOP);
                 
             }else{
-                alert('NO se registro');
+                Toast.showWithGravity('¡No se Registro la Reserva!', Toast.LONG, Toast.TOP);
                 console.log("error");
                 console.log(dataResponse.data);
             }

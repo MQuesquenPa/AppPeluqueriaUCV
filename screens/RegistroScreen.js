@@ -7,6 +7,7 @@ import apiCall from '../services/api';
 import { AuthContext } from '../components/context';
 import { LogoLogin } from '../components/LogoLogin';
 import { loginStyle } from '../theme/loginTheme';
+import Toast from 'react-native-simple-toast';
 
 export const RegistroScreen = ({navigation}) => {
     const { signIn } = useContext(AuthContext);
@@ -24,7 +25,7 @@ export const RegistroScreen = ({navigation}) => {
             if(dataResponse.data.status=="success"){
                 signIn(dataResponse.data.data._id);
             }else{
-                alert('NO se registro usuario');
+                Toast.showWithGravity('¡No se Registro, Ya Existe un Usuario con este Correo!', Toast.LONG, Toast.TOP);
                 console.log("error");
                 console.log(dataResponse.data);
             }

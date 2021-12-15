@@ -9,6 +9,7 @@ import { ActivityIndicator, Colors } from 'react-native-paper';
 import moment from 'moment';
 import Icon from 'react-native-vector-icons/Ionicons';
 import apiCall from '../services/api';
+import Toast from 'react-native-simple-toast';
 
 
 import { peluqueroStyles } from '../theme/peluqueroTheme';
@@ -127,12 +128,13 @@ export  const ReservasAllScreen = ({ navigation}) => {
             let dataResponse = await apiCall('POST', url, dato, head);
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
-                alert('se actualizo');
                 
+                Toast.showWithGravity('¡Se Actualizo la Reserva!', Toast.LONG, Toast.TOP);
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se actualizo');
+                Toast.showWithGravity('¡No se Actualizo la Reserva!', Toast.LONG, Toast.TOP);
+
             }
             
         }catch(e){
@@ -151,11 +153,13 @@ export  const ReservasAllScreen = ({ navigation}) => {
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
                 limpiar();
-                alert('se elimino');
+                Toast.showWithGravity('¡Se Elimino la Reserva!', Toast.LONG, Toast.TOP);
+
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se elimino');
+                Toast.showWithGravity('¡No se Elimino la Reserva!', Toast.LONG, Toast.TOP);
+
             }
             
         }catch(e){

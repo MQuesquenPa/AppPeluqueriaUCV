@@ -6,6 +6,7 @@ import apiCall from '../services/api';
 import { Provider as PaperProvider, Modal, Portal, Text, TextInput, ActivityIndicator} from "react-native-paper";
 import { peluqueroStyles } from '../theme/peluqueroTheme';
 import { ProductosNavigator } from '../navigator/ProductosNavigator';
+import Toast from 'react-native-simple-toast';
 
 
 export const ProductosAllScreen = ({ navigation}) => {
@@ -50,14 +51,16 @@ export const ProductosAllScreen = ({ navigation}) => {
             let dataResponse = await apiCall('POST', url, dato, head);
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
-                alert('se actualizo');
+                Toast.showWithGravity('¡Se Actualizo el Producto!', Toast.LONG, Toast.TOP);
+                
                 getData();
                 hideModalNew(); 
                 
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se actualizo');
+                Toast.showWithGravity('¡No se Actualizo el Producto!', Toast.LONG, Toast.TOP);
+
             }
             
         }catch(e){
@@ -73,14 +76,15 @@ export const ProductosAllScreen = ({ navigation}) => {
             let dataResponse = await apiCall('POST', url, dato, head);
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
-                alert('se elimino');
+                Toast.showWithGravity('¡Se Elimino el Producto!', Toast.LONG, Toast.TOP);
                 getData();
                 hideModalNew(); 
                 
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se elimino');
+                Toast.showWithGravity('¡No se Elimino el Producto!', Toast.LONG, Toast.TOP);
+
             }
             
         }catch(e){

@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/core'
 import { peluqueroStyles } from '../theme/peluqueroTheme';
 import { Provider as PaperProvider, Modal, Portal, Text, TextInput, ActivityIndicator} from "react-native-paper";
 import apiCall from '../services/api';
+import Toast from 'react-native-simple-toast';
+
 
 export const ClientesAllScreen = ({navigation}) => {
     
@@ -65,14 +67,14 @@ export const ClientesAllScreen = ({navigation}) => {
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
                 limpiar();
-                alert('se actualizo');
+                Toast.showWithGravity('¡Se Actualizo el Cliente!', Toast.LONG, Toast.TOP);
                 getData();
                 hideModalNew(); 
                 
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se actualizo');
+                Toast.showWithGravity('¡No se Actualizo el Cliente!', Toast.LONG, Toast.TOP);
             }
             
         }catch(e){
@@ -90,14 +92,14 @@ export const ClientesAllScreen = ({navigation}) => {
             if(dataResponse.data.status=="success"){
                 console.log(dataResponse.data);
                 limpiar();
-                alert('se elimino');
+                Toast.showWithGravity('¡Se Elimino el Cliente!', Toast.LONG, Toast.TOP);
                 getData();
                 hideModalNew(); 
                 
             }else{
                 console.log("error");
                 console.log(dataResponse.data);
-                alert('NO se elimino');
+                Toast.showWithGravity('¡No se Elimino el Cliente!', Toast.LONG, Toast.TOP);
             }
             
         }catch(e){

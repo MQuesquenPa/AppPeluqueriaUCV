@@ -2,6 +2,8 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Icon from 'react-native-vector-icons/Ionicons';
+import Toast from 'react-native-simple-toast';
+
 
 export const NosotrosScreen = () => {
     return (
@@ -26,7 +28,7 @@ export const NosotrosScreen = () => {
                 </TouchableOpacity>
                 <TouchableOpacity 
                     style={styless.iconos}
-                    onPress={() => {alert('Numero copiado satisfactoriamente') ;} }
+                    onPress={() => {Toast.showWithGravity('¡Número copiado satisfactoriamente!', Toast.LONG, Toast.TOP); ;} }
                 >
                     <Icon name="logo-whatsapp" size={50} color= { '#87FC70'} />
                 </TouchableOpacity>

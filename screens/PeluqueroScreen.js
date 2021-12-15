@@ -4,6 +4,7 @@ import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/core'
 import apiCall from '../services/api';
+import Toast from 'react-native-simple-toast';
 
 
 export const PeluqueroScreen = ({ navigation}) => {
@@ -30,11 +31,11 @@ export const PeluqueroScreen = ({ navigation}) => {
         if(dataResponse.data.status=="success"){
             console.log(dataResponse.data);
             limpiar();
-            alert('se registro');
-            
+            Toast.showWithGravity('¡Se Registro el Peluquero!', Toast.LONG, Toast.TOP);
         }else{
-            console.log("error");
-            console.log(dataResponse.data);
+          console.log("error");
+          console.log(dataResponse.data);
+          Toast.showWithGravity('¡No se Registro el Peluquero!', Toast.LONG, Toast.TOP);
         }
     }catch(e){
         console.log(e);

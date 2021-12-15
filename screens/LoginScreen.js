@@ -7,6 +7,7 @@ import { loginStyle } from '../theme/loginTheme';
 import { TextInput } from 'react-native-paper';
 import { AuthContext } from '../components/context';
 import apiCall from '../services/api';
+import Toast from 'react-native-simple-toast';
 
 export const LoginScreen = ({route, navigation}) => {
     
@@ -24,6 +25,7 @@ export const LoginScreen = ({route, navigation}) => {
             if(dataResponse.data.status=="success"){
                 signIn(dataResponse.data.data._id);
             }else{
+                Toast.showWithGravity('¡Correo o Contraseña incorrecta!', Toast.LONG, Toast.TOP);
                 console.log("error usuario incorrecto");
             }
         }catch(e){
