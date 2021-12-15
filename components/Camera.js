@@ -16,32 +16,22 @@ export default class Camera extends PureComponent {
       leftEarPosition: null,
       rightEarPosition : null,
       dataArray:[
-        {id:1,nombre:"peluca", imagen: require('../img/peluca.png'),  top:450, ancho: 80, left: 30, state:true},
-        {id:2,nombre:"peluca2" , imagen: require('../img/peluca2.png'), top:220, ancho: 130, left: 60, state:false},
-        {id:3,nombre:"peluca3" , imagen: require('../img/peluca3.png'), top:420, ancho: 140, left: 70, state:false},
-        {id:4,nombre:"peluca4" , imagen: require('../img/peluca4.png'), top:420, ancho: 158, left: 60, state:false},
-        {id:5,nombre:"peluca5" , imagen: require('../img/peluca5.png'),  top:190,  ancho: 150, left: 40, state:false},
-
-        {id:6,nombre:"peluca6" , imagen: require('../img/peluca6.png'),  top:440,  ancho: 120, left: 10, state:false},//eliminar borde
-
-        {id:7,nombre:"peluca7" , imagen: require('../img/peluca7.png'),  top:210,  ancho: 140, left: 50, state:false},
+        {id:1,nombre:"peluca", imagen: require('../img/peluca.png'),    top:430, ancho: 100, left: 50, state:true},
+        {id:2,nombre:"peluca2" , imagen: require('../img/peluca2.png'), top:232, ancho: 130, left: 65, state:false},
+        {id:3,nombre:"peluca3" , imagen: require('../img/peluca3.png'), top:450, ancho: 100, left: 50, state:false},
+        {id:4,nombre:"peluca4" , imagen: require('../img/peluca4.png'), top:420, ancho: 150, left: 60, state:false},
+        {id:5,nombre:"peluca7" , imagen: require('../img/peluca7.png'), top:200,  ancho: 190, left: 80, state:false},
+        {id:6,nombre:"peluca9" , imagen: require('../img/peluca9.png'), top:600,  ancho: 145, left: 80, state:false},
         
-        {id:8,nombre:"peluca8" , imagen: require('../img/peluca8.png'),  top:390,  ancho: 300, left: 200, state:false},//eliminar 
-
-        {id:9,nombre:"peluca9" , imagen: require('../img/peluca9.png'),  top:600,  ancho: 120, left: 50, state:false},
         
-        {id:10,nombre:"peluca10" , imagen: require('../img/peluca10.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:11,nombre:"peluca11" , imagen: require('../img/peluca11.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:12,nombre:"peluca12" , imagen: require('../img/peluca12.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:13,nombre:"peluca13" , imagen: require('../img/peluca13.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:14,nombre:"peluca14" , imagen: require('../img/peluca14.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:15,nombre:"peluca15" , imagen: require('../img/peluca15.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:16,nombre:"peluca16" , imagen: require('../img/peluca16.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:20,nombre:"peluca17" , imagen: require('../img/peluca17.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:18,nombre:"peluca18" , imagen: require('../img/peluca18.png'),  top:400,  ancho: 120, left: 30, state:false},
-        {id:19,nombre:"peluca19" , imagen: require('../img/peluca19.png'),  top:400,  ancho: 120, left: 30, state:false},
-   
-
+        {id:7,nombre:"peluca12" , imagen: require('../img/peluca12.png'),  top:280,  ancho: 240, left: 120, state:false},
+        {id:8,nombre:"peluca13" , imagen: require('../img/peluca13.png'),  top:250,  ancho: 240, left: 140, state:false},
+        {id:9,nombre:"peluca14" , imagen: require('../img/peluca14.png'),  top:210,  ancho: 210, left: 120, state:false},
+        {id:10,nombre:"peluca15" , imagen: require('../img/peluca15.png'),  top:150,  ancho: 150, left: 70, state:false},
+        {id:11,nombre:"peluca16" , imagen: require('../img/peluca16.png'),  top:230,  ancho: 410, left: 190, state:false},
+        {id:12,nombre:"peluca17" , imagen: require('../img/peluca17.png'),  top:270,  ancho: 220, left: 95, state:false},
+        {id:13,nombre:"peluca18" , imagen: require('../img/peluca18.png'),  top:310,  ancho: 170, left: 80, state:false},
+        
       ]
     };
   }

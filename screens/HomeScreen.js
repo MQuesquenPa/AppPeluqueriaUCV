@@ -33,19 +33,57 @@ export const HomeScreen = ({ navigation }) => {
         getData();
     }, []);
 
-
-    const getData=async()=>{
-        try{
-            let head={'Content-Type': 'application/json'};
-            let url = 'select-peluquero-by-name';
-            let dataResponse = await apiCall('GET', url, null, head);
-            console.log(dataResponse.data.dataPeluquero);
-            setData(dataResponse.data.dataPeluquero);
-            setLoading(false);
-        }catch(e){
-            console.log(e);
-        }
+    const generateFileName=(val)=>{
+        return  val.split('/').pop();
     }
+      
+    const generateType=(val)=>{
+        let match = /\.(\w+)$/.exec(val);
+        if(match==="mp4"){
+            return match ? `video/${match[1]}` : `video`;
+        }else{
+            return match ? `image/${match[1]}` : `image`;
+        }    
+    }
+
+    const registerPhoto=async()=>{
+        const formData = new FormData();
+          let filename=generateFileName(imageUri);
+          let typeImage = generateType(filename);
+          formData.append('foto',{
+            uri: imageUri,
+           type: typeImage, 
+           name: filename,
+          });
+    
+          try{
+            let method='POST';
+            let url="nuevo-foto-imagen";
+            let data=formData;
+            let head={Accept: 'application/json','Content-Type': 'multipart/form-data'};
+            const responseData = await apiCall(method,url,data,head);
+            console.log(responseData.data);
+          }catch(e){
+              console.log(e);
+              res.json("error");
+          }
+      
+        }
+
+
+        const getData=async()=>{
+            try{
+                let head={'Content-Type': 'application/json'};
+                let url = 'select-foto-by-name';
+                let dataResponse = await apiCall('GET', url, null, head);
+                console.log(dataResponse.data.dataFoto);
+                setData(dataResponse.data.dataFoto);
+                setLoading(false);
+                
+            }catch(e){
+                console.log(e);
+            }
+        }
 
     const TakePhotoFromCamera=()=>{
         ImagePicker.openCamera({
@@ -104,7 +142,10 @@ export const HomeScreen = ({ navigation }) => {
         <>
         <PaperProvider >
             <View style={styless.titulo}>
-                <Text style={styless.texto}>FOTOS DE CORTES REALIZADOS</Text>
+                <TouchableOpacity onPress={() => { getData() }}>
+                        <Text style={styless.texto}>FOTOS DE CORTES REALIZADOS</Text>
+                </TouchableOpacity>
+                    
                 {/* /////////////////////// */}
                 <TouchableOpacity onPress={() => {setVisible(true);}} >
                         <Icon style={styless.iconoCam} name="camera-outline" size={40} color="#5856D6"/> 
@@ -113,26 +154,33 @@ export const HomeScreen = ({ navigation }) => {
                 {/*/////////////////////////*/}
             </View>
             <ScrollView>
-
             <View style={styless.colum}>
-                <View style={styless.cajas}>
-                    <Image source={require('../img/Corte03.jpg')} style={styless.imagen} />
-                    <Image source={require('../img/Corte05.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte07.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte08.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte10.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte11.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte12.jpg')} style={styless.imagen}/>
-                </View>
-                <View style={styless.cajas2}>
-                    <Image source={require('../img/Corte13.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte14.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte15.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte16.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte17.jpg')} style={styless.imagen}/>
-                    <Image source={require('../img/Corte18.jpg')} style={styless.imagen}/>
-                </View>                
-            </View>
+            {data.length>0 ? 
+                    data.map((item,index)=>{
+                        return(
+                            
+                        <View key={index} >
+                           
+                           <Image 
+                            source = {{uri:item.imagen}}
+                            // style = {{width: 50, height: 100 }}
+                            style={styless.imagen}
+                            />
+     
+                        </View>
+                        )
+                        
+                    })
+                : 
+                    <View style={{flex:1,justifyContent:'center',alignItems:'center', marginTop: '50%'}}>
+                    
+                    <ActivityIndicator animating={true} color={'red'} />
+
+                    <Text>CARGANDO</Text>
+                    </View>
+                }
+                    </View>
+                   
             {/* ////////////////////// */}
             <Portal>
                         <Modal visible={visible} onDismiss={hideModalNew} contentContainerStyle={{
@@ -186,9 +234,11 @@ export const HomeScreen = ({ navigation }) => {
                                 <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
                                     <Text style={stylesBottomSheet.panelButtonTitle}>Abrir Galeria</Text>
                                 </TouchableOpacity>
-                                <TouchableOpacity style={stylesBottomSheet.panelButton} onPress={() => { TakePhotoGalery(); hideMode(); }}>
-                                    <Text style={stylesBottomSheet.panelButtonTitle}>Registrar</Text>
-                                </TouchableOpacity>
+                                <TouchableOpacity style={stylesBottomSheet.panelButton}
+                                onPress={() => {registerPhoto(); setImageUri(''); }}
+                                >
+                               <Text style={stylesBottomSheet.panelButtonTitle}>Registrar</Text>
+                            </TouchableOpacity>
                             </View>
                             </View>
                         </Modal>
@@ -229,23 +279,24 @@ const styless = StyleSheet.create({
         marginTop: -10 ,
     },
     colum:{
-
+        display: 'flex',
         flexDirection: 'row',
-        alignSelf: 'center',
-    },
-    cajas:{
         
-        padding: 10
+        flexWrap: 'wrap',
+        padding: 10,
+
     },
     cajas:{
         padding: 10,
-
+        
     },
     imagen:{
         width: 165,
         height: 150,
-        marginTop: 20,
+        marginTop: 5,
+        marginLeft: 5,
         borderWidth: 1,
+        
         borderColor: 'rgba(0,0,0,0.2)'
 
     }
